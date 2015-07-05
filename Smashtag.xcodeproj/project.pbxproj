@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		099BCF0E1B498FF2003E47E1 /* ResentSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099BCF0D1B498FF2003E47E1 /* ResentSearchViewController.swift */; };
+		099BCF101B4994A4003E47E1 /* SearchQuerySaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099BCF0F1B4994A4003E47E1 /* SearchQuerySaver.swift */; };
 		EC6876171A898EF4006B5FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6876161A898EF4006B5FDB /* AppDelegate.swift */; };
 		EC68761C1A898EF4006B5FDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC68761A1A898EF4006B5FDB /* Main.storyboard */; };
 		EC68761E1A898EF4006B5FDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC68761D1A898EF4006B5FDB /* Images.xcassets */; };
@@ -31,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		099BCF0D1B498FF2003E47E1 /* ResentSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResentSearchViewController.swift; sourceTree = "<group>"; };
+		099BCF0F1B4994A4003E47E1 /* SearchQuerySaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchQuerySaver.swift; sourceTree = "<group>"; };
 		EC6876111A898EF4006B5FDB /* Smashtag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smashtag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC6876151A898EF4006B5FDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC6876161A898EF4006B5FDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +94,8 @@
 				EC68761A1A898EF4006B5FDB /* Main.storyboard */,
 				EC6876361A898F4D006B5FDB /* TweetTableViewController.swift */,
 				EC6876411A8994BB006B5FDB /* TweetTableViewCell.swift */,
+				099BCF0D1B498FF2003E47E1 /* ResentSearchViewController.swift */,
+				099BCF0F1B4994A4003E47E1 /* SearchQuerySaver.swift */,
 				EC6876381A898FC6006B5FDB /* Twitter */,
 				EC6876141A898EF4006B5FDB /* Supporting Files */,
 			);
@@ -237,10 +243,12 @@
 			files = (
 				EC6876171A898EF4006B5FDB /* AppDelegate.swift in Sources */,
 				EC68763F1A898FC6006B5FDB /* TwitterRequest.swift in Sources */,
+				099BCF0E1B498FF2003E47E1 /* ResentSearchViewController.swift in Sources */,
 				EC6876401A898FC6006B5FDB /* User.swift in Sources */,
 				EC6876371A898F4D006B5FDB /* TweetTableViewController.swift in Sources */,
 				EC68763D1A898FC6006B5FDB /* MediaItem.swift in Sources */,
 				EC68763E1A898FC6006B5FDB /* Tweet.swift in Sources */,
+				099BCF101B4994A4003E47E1 /* SearchQuerySaver.swift in Sources */,
 				EC6876421A8994BB006B5FDB /* TweetTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

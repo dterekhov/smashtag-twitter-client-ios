@@ -11,7 +11,6 @@ import UIKit
 class TweetTableViewController: UITableViewController, UITextFieldDelegate
 {
     // MARK: - Public API
-
     var tweets = [[Tweet]]()
 
     var searchText: String? = "#stanford" {
@@ -25,7 +24,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     }
     
     // MARK: - View Controller Lifecycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.estimatedRowHeight = tableView.rowHeight
@@ -34,12 +32,12 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     }
     
     // MARK: - Refreshing
-
     private var lastSuccessfulRequest: TwitterRequest?
 
     private var nextRequestToAttempt: TwitterRequest? {
         if lastSuccessfulRequest == nil {
             if searchText != nil {
+                SearchQuerySaver.saveSearchQuery(searchText!)
                 return TwitterRequest(search: searchText!, count: 100)
             } else {
                 return nil
@@ -72,7 +70,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     }
     
     // MARK: - Storyboard Connectivity
-    
     @IBOutlet private weak var searchTextField: UITextField! {
         didSet {
             searchTextField.delegate = self
@@ -93,7 +90,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     }
     
     // MARK: - UITableViewDataSource
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return tweets.count
     }
