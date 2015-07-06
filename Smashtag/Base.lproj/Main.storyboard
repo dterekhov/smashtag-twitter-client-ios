@@ -37,12 +37,18 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cnE-1d-1G3">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ProfilePlaceholderImg" translatesAutoresizingMaskIntoConstraints="NO" id="cnE-1d-1G3">
                                             <rect key="frame" x="8" y="8" width="48" height="48"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="48" id="EKP-wF-C4M"/>
                                                 <constraint firstAttribute="width" constant="48" id="OnB-ST-FJu"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="4"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDO-Ht-oXb">
                                             <rect key="frame" x="8" y="64" width="48" height="15"/>
@@ -210,6 +216,9 @@
             <point key="canvasLocation" x="-608" y="992"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ProfilePlaceholderImg" width="128" height="128"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WhF-MR-hWy"/>
     </inferredMetricsTieBreakers>
