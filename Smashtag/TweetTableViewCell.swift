@@ -121,11 +121,3 @@ class TweetTableViewCell: UITableViewCell
 //}
 
 // MARK: -
-extension NSCache {
-    class var sharedInstance : NSCache {
-        struct Static {
-            static let instance = NSCache()
-        }
-        return Static.instance
-    }
-}

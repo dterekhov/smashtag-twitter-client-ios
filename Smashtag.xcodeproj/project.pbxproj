@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		094CDC6E1B4F00A4007BEFDA /* UIImageViewCacheExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CDC6D1B4F00A4007BEFDA /* UIImageViewCacheExtension.swift */; };
 		099BCF0E1B498FF2003E47E1 /* ResentSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099BCF0D1B498FF2003E47E1 /* ResentSearchViewController.swift */; };
 		099BCF101B4994A4003E47E1 /* SearchQuerySaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099BCF0F1B4994A4003E47E1 /* SearchQuerySaver.swift */; };
 		EC6876171A898EF4006B5FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6876161A898EF4006B5FDB /* AppDelegate.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		094CDC6D1B4F00A4007BEFDA /* UIImageViewCacheExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewCacheExtension.swift; sourceTree = "<group>"; };
 		099BCF0D1B498FF2003E47E1 /* ResentSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResentSearchViewController.swift; sourceTree = "<group>"; };
 		099BCF0F1B4994A4003E47E1 /* SearchQuerySaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchQuerySaver.swift; sourceTree = "<group>"; };
 		EC6876111A898EF4006B5FDB /* Smashtag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smashtag.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +98,7 @@
 				EC6876411A8994BB006B5FDB /* TweetTableViewCell.swift */,
 				099BCF0D1B498FF2003E47E1 /* ResentSearchViewController.swift */,
 				099BCF0F1B4994A4003E47E1 /* SearchQuerySaver.swift */,
+				094CDC6D1B4F00A4007BEFDA /* UIImageViewCacheExtension.swift */,
 				EC6876381A898FC6006B5FDB /* Twitter */,
 				EC6876141A898EF4006B5FDB /* Supporting Files */,
 			);
@@ -242,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC6876171A898EF4006B5FDB /* AppDelegate.swift in Sources */,
+				094CDC6E1B4F00A4007BEFDA /* UIImageViewCacheExtension.swift in Sources */,
 				EC68763F1A898FC6006B5FDB /* TwitterRequest.swift in Sources */,
 				099BCF0E1B498FF2003E47E1 /* ResentSearchViewController.swift in Sources */,
 				EC6876401A898FC6006B5FDB /* User.swift in Sources */,
