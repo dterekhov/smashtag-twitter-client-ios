@@ -103,6 +103,32 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
 
         cell.tweet = tweets[indexPath.section][indexPath.row]
+        
+        
+        
+        if let profileImageURL = cell.tweet!.user.profileImageURL {
+            cell.tweetProfileImageView.image = nil;
+            if let cachedImageData = NSCache.sharedInstance.objectForKey(profileImageURL) as? NSData {
+                // Get image from cache
+                cell.tweetProfileImageView.image = UIImage(data: cachedImageData)
+            } else {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
+                    if let profileImageData = NSData(contentsOfURL: profileImageURL) {
+                        // Set image in cache
+                        let cost = Int(round(Double(profileImageData.length) / 1024)) // Image size in KiloBytes
+                        NSCache.sharedInstance.setObject(profileImageData, forKey: profileImageURL, cost: cost)
+                        
+                        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                            let updateCell = tableView.cellForRowAtIndexPath(indexPath)
+                            if updateCell != nil {
+                                // Set image in imageView
+                                cell.tweetProfileImageView.image = UIImage(data: profileImageData)
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         return cell
     }
