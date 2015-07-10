@@ -36,7 +36,7 @@ extension UIImageView {
                         if let loadedImage = UIImage(data: loadedImageData) {
                             success?(loadedImage)
                         } else {
-                            let creatingImageError = NSError(domain: "SomeDomail", code: NSURLErrorDownloadDecodingFailedToComplete, userInfo: nil)
+                            let creatingImageError = NSError(domain: "SomeDomain", code: NSURLErrorDownloadDecodingFailedToComplete, userInfo: nil)
                             failure?(creatingImageError)
                         }
                     }

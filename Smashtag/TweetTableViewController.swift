@@ -101,18 +101,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
-
-        cell.tweet = tweets[indexPath.section][indexPath.row]
-        
-        if let profileImageURL = cell.tweet!.user.profileImageURL {
-            let profilePlaceholderImage = UIImage(named: "ProfilePlaceholderImg")
-            cell.tweetProfileImageView.setImage(profileImageURL, placeholderImage: profilePlaceholderImage, success: {
-                if let updateCell = tableView.cellForRowAtIndexPath(indexPath) as? TweetTableViewCell {
-                    updateCell.tweetProfileImageView.image = $0
-                }
-            }, failure: nil)
-        }
-
+        cell.setup(tweets[indexPath.section][indexPath.row], tableView: tableView, indexPath: indexPath)
         return cell
     }
 }
