@@ -19,22 +19,12 @@ extension NSCache {
 }
 
 extension UIImageView {
-    func setImage(URL: NSURL, placeholderImage: UIImage, completionHandler: (UIImage?, NSError?) -> Void) {
+    func setImage(URL: NSURL, placeholderImage: UIImage?, success: (UIImage -> Void)?, failure: (NSError -> Void)?) {
         image = placeholderImage;
         if let cachedImageData = NSCache.sharedInstance.objectForKey(URL) as? NSData {
             // Get image from cache
             image = UIImage(data: cachedImageData)
         } else {
-            
-//            var request: NSURLRequest = NSURLRequest(URL: URL)
-//            let queue:NSOperationQueue = NSOperationQueue()
-//            NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-//                
-//            })
-            
-            
-            
-            
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
                 var error: NSError?
                 if let loadedImageData = NSData(contentsOfURL: URL, options: NSDataReadingOptions.DataReadingUncached, error: &error) {
@@ -44,20 +34,14 @@ extension UIImageView {
                     
                     dispatch_async(dispatch_get_main_queue()) { () -> Void in
                         if let loadedImage = UIImage(data: loadedImageData) {
-                            completionHandler(loadedImage, nil)
+                            success?(loadedImage)
                         } else {
                             let creatingImageError = NSError(domain: "SomeDomail", code: NSURLErrorDownloadDecodingFailedToComplete, userInfo: nil)
-                            completionHandler(nil, creatingImageError)
+                            failure?(creatingImageError)
                         }
-                        
-//                        let updateCell = tableView.cellForRowAtIndexPath(indexPath)
-//                        if updateCell != nil {
-//                            // Set image in imageView
-//                            cell.tweetProfileImageView.image = UIImage(data: loadedImageData)
-//                        }
                     }
                 } else {
-                    completionHandler(nil, error)
+                    failure?(error!)
                 }
             }
         }
