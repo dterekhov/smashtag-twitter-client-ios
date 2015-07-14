@@ -28,7 +28,18 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         super.viewDidLoad()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "contentSizeCategoryDidChanged", name:UIContentSizeCategoryDidChangeNotification, object: nil)
+        
         refresh()
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIContentSizeCategoryDidChangeNotification, object: nil)
+    }
+    
+    @objc private func contentSizeCategoryDidChanged() {
+        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
     }
     
     // MARK: - Refreshing

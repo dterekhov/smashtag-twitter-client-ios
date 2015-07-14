@@ -32,6 +32,8 @@ class TweetTableViewCell: UITableViewCell
         
         // Setup other fields
         setupTextFields(tweet)
+        
+        setupFont()
     }
     
     private func setupTextFields(tweet: Tweet) {
@@ -61,5 +63,10 @@ class TweetTableViewCell: UITableViewCell
             tweetCreatedLabel?.text = formatter.stringFromDate(tweet.created)
         }
 
+    }
+    
+    func setupFont() {
+        tweetScreenNameLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        tweetTextLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
     }
 }
