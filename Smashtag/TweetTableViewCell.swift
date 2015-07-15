@@ -10,6 +10,12 @@ import UIKit
 
 class TweetTableViewCell: UITableViewCell
 {
+    private struct Pallete {
+        static let HashtagColor = UIColor.brownColor()
+        static let URLColor = UIColor.blueColor()
+        static let UserColor = UIColor.purpleColor()
+    }
+    
     let profilePlaceholderImage = UIImage(named: "ProfilePlaceholderImg")
     private(set) var tweet: Tweet?
     
@@ -18,6 +24,7 @@ class TweetTableViewCell: UITableViewCell
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var tweetCreatedLabel: UILabel!
     
+    // MARK: - Setups
     func setup(tweet: Tweet, tableView: UITableView, indexPath: NSIndexPath) {
         self.tweet = tweet
         
@@ -32,7 +39,6 @@ class TweetTableViewCell: UITableViewCell
         
         // Setup other fields
         setupTextFields(tweet)
-        
         setupFont()
     }
     
@@ -45,12 +51,7 @@ class TweetTableViewCell: UITableViewCell
         // load new information from our tweet (if any)
         if let tweet = self.tweet
         {
-            tweetTextLabel?.text = tweet.text
-            if tweetTextLabel?.text != nil  {
-                for _ in tweet.media {
-                    tweetTextLabel.text! += " 📷"
-                }
-            }
+            setupTweetTextLabel(tweet)
             
             tweetScreenNameLabel?.text = "\(tweet.user)" // tweet.user.description
             
@@ -62,11 +63,30 @@ class TweetTableViewCell: UITableViewCell
             }
             tweetCreatedLabel?.text = formatter.stringFromDate(tweet.created)
         }
-
     }
     
-    func setupFont() {
+    private func setupTweetTextLabel(tweet: Tweet) {
+        // Create text to colorize
+        var tweetText: String = tweet.text
+        for _ in tweet.media { tweetText += " 📷" }
+        var attributtedText = NSMutableAttributedString(string: tweet.text)
+        
+        // Colorize text
+        colorizeAttributedStringByKeywords(&attributtedText, keywords: tweet.hashtags, highlightingColor: Pallete.HashtagColor)
+        colorizeAttributedStringByKeywords(&attributtedText, keywords: tweet.urls, highlightingColor: Pallete.URLColor)
+        colorizeAttributedStringByKeywords(&attributtedText, keywords: tweet.userMentions, highlightingColor: Pallete.UserColor)
+        tweetTextLabel.attributedText = attributtedText
+    }
+    
+    private func setupFont() {
         tweetScreenNameLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         tweetTextLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+    }
+    
+    // MARK: - Utils
+    private func colorizeAttributedStringByKeywords(inout attributedString: NSMutableAttributedString, keywords: [Tweet.IndexedKeyword], highlightingColor: UIColor) {
+        for keyword in keywords {
+            attributedString.addAttribute(NSForegroundColorAttributeName, value: highlightingColor, range: keyword.nsrange)
+        }
     }
 }
