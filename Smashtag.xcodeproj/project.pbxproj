@@ -20,6 +20,7 @@
 		09538EC81B5A617700AD2805 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09538EC41B5A617700AD2805 /* LaunchScreen.xib */; };
 		09538EC91B5A617700AD2805 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09538EC61B5A617700AD2805 /* Main.storyboard */; };
 		09538ECD1B5A61F900AD2805 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09538ECB1B5A61F900AD2805 /* Images.xcassets */; };
+		09538EDE1B5AA71A00AD2805 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09538EDD1B5AA71A00AD2805 /* ImageTableViewCell.swift */; };
 		EC6876171A898EF4006B5FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6876161A898EF4006B5FDB /* AppDelegate.swift */; };
 		EC68762D1A898EF4006B5FDB /* SmashtagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC68762C1A898EF4006B5FDB /* SmashtagTests.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		09538EC71B5A617700AD2805 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		09538ECB1B5A61F900AD2805 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		09538EDC1B5A674900AD2805 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09538EDD1B5AA71A00AD2805 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		EC6876111A898EF4006B5FDB /* Smashtag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smashtag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC6876161A898EF4006B5FDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC6876261A898EF4006B5FDB /* SmashtagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmashtagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,9 +99,9 @@
 		09538EB91B5A614000AD2805 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				09538EBA1B5A614000AD2805 /* MentionsTableViewController.swift */,
-				09538EBB1B5A614000AD2805 /* ResentSearchViewController.swift */,
 				09538EBC1B5A614000AD2805 /* TweetTVCWithCell */,
+				09538EDF1B5ADD9C00AD2805 /* MentionsTVCWithCell */,
+				09538EBB1B5A614000AD2805 /* ResentSearchViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -129,6 +131,15 @@
 				09538EDC1B5A674900AD2805 /* Info.plist */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		09538EDF1B5ADD9C00AD2805 /* MentionsTVCWithCell */ = {
+			isa = PBXGroup;
+			children = (
+				09538EBA1B5A614000AD2805 /* MentionsTableViewController.swift */,
+				09538EDD1B5AA71A00AD2805 /* ImageTableViewCell.swift */,
+			);
+			path = MentionsTVCWithCell;
 			sourceTree = "<group>";
 		};
 		EC6876081A898EF4006B5FDB = {
@@ -288,6 +299,7 @@
 				09538EC21B5A614000AD2805 /* TweetTableViewController.swift in Sources */,
 				09538EBF1B5A614000AD2805 /* MentionsTableViewController.swift in Sources */,
 				09538EB71B5A610C00AD2805 /* TwitterRequest.swift in Sources */,
+				09538EDE1B5AA71A00AD2805 /* ImageTableViewCell.swift in Sources */,
 				09538EAB1B5A60E300AD2805 /* UIImageViewCacheExtension.swift in Sources */,
 				09538EC11B5A614000AD2805 /* TweetTableViewCell.swift in Sources */,
 			);

@@ -115,4 +115,15 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         cell.setup(tweets[indexPath.section][indexPath.row], tableView: tableView, indexPath: indexPath)
         return cell
     }
+    
+    // MARK: - Navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+        if let mentionsTVC = segue.destinationViewController as? MentionsTableViewController {
+            if let cell = sender as? TweetTableViewCell {
+                mentionsTVC.tweet = cell.tweet
+            }
+        }
+    }
 }

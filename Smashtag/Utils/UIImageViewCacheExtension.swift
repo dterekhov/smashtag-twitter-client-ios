@@ -23,7 +23,7 @@ extension UIImageView {
         image = placeholderImage;
         if let cachedImageData = NSCache.sharedInstance.objectForKey(URL) as? NSData {
             // Get image from cache
-            image = UIImage(data: cachedImageData)
+            success?(UIImage(data: cachedImageData)!)
         } else {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
                 var error: NSError?
