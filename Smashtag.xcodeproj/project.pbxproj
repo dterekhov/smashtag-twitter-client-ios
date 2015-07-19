@@ -112,8 +112,8 @@
 		09538EBC1B5A614000AD2805 /* TweetTVCWithCell */ = {
 			isa = PBXGroup;
 			children = (
-				09538EBD1B5A614000AD2805 /* TweetTableViewCell.swift */,
 				09538EBE1B5A614000AD2805 /* TweetTableViewController.swift */,
+				09538EBD1B5A614000AD2805 /* TweetTableViewCell.swift */,
 			);
 			path = TweetTVCWithCell;
 			sourceTree = "<group>";

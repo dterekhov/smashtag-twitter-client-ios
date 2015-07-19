@@ -42,6 +42,7 @@ class ResentSearchViewController: UIViewController, UITableViewDataSource {
             if segue.identifier == Constants.SelectRowSegue {
                 if let cellText = (sender as? UITableViewCell)?.textLabel?.text {
                     tweetTVC.searchText = cellText
+                    tweetTVC.title = cellText
                 }
             }
         }

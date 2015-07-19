@@ -123,6 +123,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         if let mentionsTVC = segue.destinationViewController as? MentionsTableViewController {
             if let cell = sender as? TweetTableViewCell {
                 mentionsTVC.tweet = cell.tweet
+                mentionsTVC.title = cell.tweetScreenNameLabel.text
             }
         }
     }

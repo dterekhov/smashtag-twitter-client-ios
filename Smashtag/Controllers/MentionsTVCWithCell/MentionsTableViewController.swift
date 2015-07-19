@@ -145,11 +145,13 @@ class MentionsTableViewController: UITableViewController {
             case .Keyword(let keyword):
                 if let tweetTVC = segue.destinationViewController as? TweetTableViewController {
                     tweetTVC.searchText = keyword
+                    tweetTVC.title = self.title
                 }
             case .Image(_, _):
                 if let imageCell = sender as? ImageTableViewCell {
                     if let imageVC = segue.destinationViewController as? ImageViewController {
                         imageVC.image = imageCell.tweetImage
+                        imageVC.title = self.title
                     }
                 }
             }
