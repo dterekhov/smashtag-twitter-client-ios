@@ -141,17 +141,21 @@ class MentionsTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
-            switch (mentionCategories[indexPath.section].mentions[indexPath.row]) {
-            case .Keyword(let keyword):
+            let category = mentionCategories[indexPath.section]
+            switch (category.mentions[indexPath.row]) {
+            case .Keyword(var keyword):
                 if let tweetTVC = segue.destinationViewController as? TweetTableViewController {
-                    tweetTVC.searchText = keyword
                     tweetTVC.title = self.title
+                    if category.name == Constants.UserCategoryName {
+                        keyword += " OR from:" + keyword
+                    }
+                    tweetTVC.searchText = keyword
                 }
             case .Image(_, _):
                 if let imageCell = sender as? ImageTableViewCell {
                     if let imageVC = segue.destinationViewController as? ImageViewController {
-                        imageVC.image = imageCell.tweetImage
                         imageVC.title = self.title
+                        imageVC.image = imageCell.tweetImage
                     }
                 }
             }
