@@ -9,9 +9,10 @@
 import UIKit
 
 class ImageTableViewCell: UITableViewCell {
-    @IBOutlet weak var tweetImageView: UIImageView!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet private weak var tweetImageView: UIImageView!
+    @IBOutlet private weak var spinner: UIActivityIndicatorView!
     
+    // MARK: - Public API
     var URL: NSURL? {
         didSet {
             if URL == nil { return }
@@ -23,5 +24,9 @@ class ImageTableViewCell: UITableViewCell {
                     self.spinner.stopAnimating()
             })
         }
+    }
+    
+    var tweetImage: UIImage? {
+        return tweetImageView.image
     }
 }

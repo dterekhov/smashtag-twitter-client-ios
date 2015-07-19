@@ -100,7 +100,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YdZ-xU-89r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="922" y="284"/>
+            <point key="canvasLocation" x="214" y="284"/>
         </scene>
         <!--Mentions Table View Controller-->
         <scene sceneID="VBc-uh-wKC">
@@ -124,6 +124,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="MxJ-wT-guP" kind="show" identifier="" id="oTF-bc-fbG"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageMentionTableViewCell" rowHeight="230" id="cWG-dx-ibj" customClass="ImageTableViewCell" customModule="Smashtag" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -151,6 +154,7 @@
                                 <connections>
                                     <outlet property="spinner" destination="mXi-Tg-YvC" id="Gd1-o2-e3e"/>
                                     <outlet property="tweetImageView" destination="9e4-ha-7F2" id="UFR-RX-sbF"/>
+                                    <segue destination="gYO-nc-aVh" kind="show" id="aNw-iQ-Dpb"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -162,7 +166,49 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hlb-wK-yTf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1613" y="284"/>
+            <point key="canvasLocation" x="921" y="284"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="eDe-G3-A0l">
+            <objects>
+                <viewController id="gYO-nc-aVh" customClass="ImageViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fLC-uV-3CD"/>
+                        <viewControllerLayoutGuide type="bottom" id="wvt-e1-xgu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0PO-96-iK7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="aFh-ie-Vob">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outlet property="delegate" destination="gYO-nc-aVh" id="ecc-9H-EYp"/>
+                                    <outletCollection property="gestureRecognizers" destination="dyV-3C-5qq" appends="YES" id="BoH-EF-EH7"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="aFh-ie-Vob" secondAttribute="trailing" id="Eoi-Yz-P4X"/>
+                            <constraint firstItem="aFh-ie-Vob" firstAttribute="leading" secondItem="0PO-96-iK7" secondAttribute="leading" id="gEW-hl-PMh"/>
+                            <constraint firstItem="aFh-ie-Vob" firstAttribute="top" secondItem="fLC-uV-3CD" secondAttribute="bottom" id="hq7-Dy-D0m"/>
+                            <constraint firstItem="aFh-ie-Vob" firstAttribute="bottom" secondItem="wvt-e1-xgu" secondAttribute="top" id="vof-LQ-Pgp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scrollView" destination="aFh-ie-Vob" id="lhv-zh-XDN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CLD-Ke-MjX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="dyV-3C-5qq">
+                    <connections>
+                        <action selector="scrollViewDoubleTap:" destination="gYO-nc-aVh" id="yPk-iY-MGP"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="921" y="1014"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Zz3-IF-9rG">

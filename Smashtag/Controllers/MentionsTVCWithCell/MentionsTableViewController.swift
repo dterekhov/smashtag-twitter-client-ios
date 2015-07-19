@@ -43,7 +43,7 @@ class MentionsTableViewController: UITableViewController {
         }
     }
     
-    // MARK: - Members
+    // MARK: - Public API
     var tweet: Tweet? {
         didSet {
             // Create imageCategory
@@ -118,14 +118,41 @@ class MentionsTableViewController: UITableViewController {
             return cell
         }
     }
-
+    
     // MARK: - Navigation
-    /*
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        // Can perform segue to TweetTVC only for tapping on Hashtag or User cell
+        let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
+        let category = mentionCategories[indexPath.section]
+        switch (category.name) {
+        case Constants.URLCategoryName:
+            switch (category.mentions[indexPath.row]) {
+            case .Keyword(let keyword): UIApplication.sharedApplication().openURL(NSURL(string: keyword)!)
+            default: break
+            }
+            return false
+        case Constants.HashtagCategoryName, Constants.UserCategoryName: return true
+        // Can perform segue to imageVC only if image is set
+        case Constants.ImageCategoryName:
+            return (sender as? ImageTableViewCell)?.tweetImage != nil
+        default: return false
+        }
     }
-    */
-
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
+            switch (mentionCategories[indexPath.section].mentions[indexPath.row]) {
+            case .Keyword(let keyword):
+                if let tweetTVC = segue.destinationViewController as? TweetTableViewController {
+                    tweetTVC.searchText = keyword
+                }
+            case .Image(_, _):
+                if let imageCell = sender as? ImageTableViewCell {
+                    if let imageVC = segue.destinationViewController as? ImageViewController {
+                        imageVC.image = imageCell.tweetImage
+                    }
+                }
+            }
+        }
+    }
 }
