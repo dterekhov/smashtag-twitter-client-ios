@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MentionsTableViewController: UITableViewController {
+class MentionsTableViewController: UITableViewController {    
     // MARK: - Constants
     private struct Storyboard {
         static let MentionTableViewCellID = "MentionTableViewCell"
@@ -122,25 +122,29 @@ class MentionsTableViewController: UITableViewController {
     // MARK: - Navigation
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
         // Can perform segue to TweetTVC only for tapping on Hashtag or User cell
-        let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
-        let category = mentionCategories[indexPath.section]
-        switch (category.name) {
-        case Constants.URLCategoryName:
-            switch (category.mentions[indexPath.row]) {
-            case .Keyword(let keyword): UIApplication.sharedApplication().openURL(NSURL(string: keyword)!)
-            default: break
+        if let cell = sender as? UITableViewCell {
+            let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
+            let category = mentionCategories[indexPath.section]
+            switch (category.name) {
+            case Constants.URLCategoryName:
+                switch (category.mentions[indexPath.row]) {
+                case .Keyword(let keyword): UIApplication.sharedApplication().openURL(NSURL(string: keyword)!)
+                default: break
+                }
+                return false
+            case Constants.HashtagCategoryName, Constants.UserCategoryName: return true
+            // Can perform segue to imageVC only if image is set
+            case Constants.ImageCategoryName:
+                return (sender as? ImageTableViewCell)?.tweetImage != nil
+            default: return false
             }
-            return false
-        case Constants.HashtagCategoryName, Constants.UserCategoryName: return true
-        // Can perform segue to imageVC only if image is set
-        case Constants.ImageCategoryName:
-            return (sender as? ImageTableViewCell)?.tweetImage != nil
-        default: return false
         }
+        return true
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
+        if let cell = sender as? UITableViewCell {
+            let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
             let category = mentionCategories[indexPath.section]
             switch (category.mentions[indexPath.row]) {
             case .Keyword(var keyword):

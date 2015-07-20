@@ -22,6 +22,7 @@
 		09538ECD1B5A61F900AD2805 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09538ECB1B5A61F900AD2805 /* Images.xcassets */; };
 		09538EDE1B5AA71A00AD2805 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09538EDD1B5AA71A00AD2805 /* ImageTableViewCell.swift */; };
 		095AAD031B5B8E3E0054A4C8 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095AAD021B5B8E3E0054A4C8 /* ImageViewController.swift */; };
+		0973C7981B5D8E5A00D6BF9E /* RootTweetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0973C7971B5D8E5A00D6BF9E /* RootTweetTableViewController.swift */; };
 		EC6876171A898EF4006B5FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6876161A898EF4006B5FDB /* AppDelegate.swift */; };
 		EC68762D1A898EF4006B5FDB /* SmashtagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC68762C1A898EF4006B5FDB /* SmashtagTests.swift */; };
 /* End PBXBuildFile section */
@@ -53,6 +54,7 @@
 		09538EDC1B5A674900AD2805 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09538EDD1B5AA71A00AD2805 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		095AAD021B5B8E3E0054A4C8 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		0973C7971B5D8E5A00D6BF9E /* RootTweetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTweetTableViewController.swift; sourceTree = "<group>"; };
 		EC6876111A898EF4006B5FDB /* Smashtag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smashtag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC6876161A898EF4006B5FDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC6876261A898EF4006B5FDB /* SmashtagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmashtagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +107,7 @@
 				09538EDF1B5ADD9C00AD2805 /* MentionsTVCWithCell */,
 				09538EBB1B5A614000AD2805 /* ResentSearchViewController.swift */,
 				095AAD021B5B8E3E0054A4C8 /* ImageViewController.swift */,
+				0973C7971B5D8E5A00D6BF9E /* RootTweetTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				09538EB61B5A610C00AD2805 /* Tweet.swift in Sources */,
 				09538EB51B5A610C00AD2805 /* MediaItem.swift in Sources */,
 				09538EAA1B5A60E300AD2805 /* SearchQuerySaver.swift in Sources */,
+				0973C7981B5D8E5A00D6BF9E /* RootTweetTableViewController.swift in Sources */,
 				09538EB81B5A610C00AD2805 /* User.swift in Sources */,
 				095AAD031B5B8E3E0054A4C8 /* ImageViewController.swift in Sources */,
 				09538EC21B5A614000AD2805 /* TweetTableViewController.swift in Sources */,
