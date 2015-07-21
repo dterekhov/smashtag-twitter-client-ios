@@ -8,18 +8,24 @@
 
 import UIKit
 
-class MentionsTableViewController: UITableViewController {    
+class MentionsTableViewController: UITableViewController, UIActionSheetDelegate {
     // MARK: - Constants
     private struct Storyboard {
         static let MentionTableViewCellID = "MentionTableViewCell"
         static let ImageMentionTableViewCellID = "ImageMentionTableViewCell"
+        static let OpenURLInsideAppSegue = "OpenURLInsideAppSegue"
     }
     
     private struct Constants {
+        static let appName = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as! String
+        
         static let ImageCategoryName = "Images"
         static let HashtagCategoryName = "Hashtags"
         static let UserCategoryName = "Users"
         static let URLCategoryName = "URLs"
+        
+        static let OpenURLInsideApp = 1
+        static let OpenURLInSafari = 2
     }
     
     // MARK: - Mention type
@@ -42,6 +48,9 @@ class MentionsTableViewController: UITableViewController {
             }
         }
     }
+    
+    // MARK: -
+    private var openingURL: NSURL?
     
     // MARK: - Public API
     var tweet: Tweet? {
@@ -119,6 +128,8 @@ class MentionsTableViewController: UITableViewController {
         }
     }
     
+    // TODO: Исправить переходы (следить за segue.identifier) в методах: shouldPerformSegueWithIdentifier и prepareForSegue
+    
     // MARK: - Navigation
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
         // Can perform segue to TweetTVC only for tapping on Hashtag or User cell
@@ -128,10 +139,15 @@ class MentionsTableViewController: UITableViewController {
             switch (category.name) {
             case Constants.URLCategoryName:
                 switch (category.mentions[indexPath.row]) {
-                case .Keyword(let keyword): UIApplication.sharedApplication().openURL(NSURL(string: keyword)!)
-                default: break
+                case .Keyword(let keyword):
+                    openingURL = NSURL(string: keyword)!
+                    let test = Constants.appName
+                    let openURLActionSheet = UIActionSheet(title: "Open URL in", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: Constants.appName, "Safari");
+                    openURLActionSheet.showInView(self.view)
+                    return false
+                default:
+                    return false
                 }
-                return false
             case Constants.HashtagCategoryName, Constants.UserCategoryName: return true
             // Can perform segue to imageVC only if image is set
             case Constants.ImageCategoryName:
@@ -163,6 +179,20 @@ class MentionsTableViewController: UITableViewController {
                     }
                 }
             }
+        } else if segue.identifier == Storyboard.OpenURLInsideAppSegue {
+            if let webVC = segue.destinationViewController as? WebViewController where openingURL != nil {
+                webVC.URL = openingURL
+            }
         }
+    }
+    
+    // MARK: - UIActionSheetDelegate
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        if buttonIndex == Constants.OpenURLInsideApp {
+            performSegueWithIdentifier(Storyboard.OpenURLInsideAppSegue, sender: actionSheet)
+        } else if buttonIndex == Constants.OpenURLInSafari {
+            UIApplication.sharedApplication().openURL(openingURL!)
+        }
+        openingURL = nil
     }
 }
