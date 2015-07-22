@@ -17,21 +17,20 @@ class SearchQuerySaver {
     static func saveSearchQuery(queryString: String) {
         var savedQueries = lastSearchQueries()
         // Store only maxSavedQueriesCount
-        if savedQueries.count == 10 {
+        if savedQueries.count == Constants.maxSavedQueriesCount {
             savedQueries.removeLast()
         }
         
         // Add only uniq queryString
         if !contains(savedQueries, queryString) {
-            savedQueries.append(queryString)
+            savedQueries.insert(queryString, atIndex: 0)
             NSUserDefaults.standardUserDefaults().setObject(savedQueries, forKey: Constants.savedQueriesKey)
         }
     }
     
     static func lastSearchQueries() -> [String] {
         if let savedQueries = NSUserDefaults.standardUserDefaults().arrayForKey(Constants.savedQueriesKey) as? [String]  {
-            // Sort array: first element is more recent element
-            return savedQueries.reverse();
+            return savedQueries;
         }
         return []
     }
