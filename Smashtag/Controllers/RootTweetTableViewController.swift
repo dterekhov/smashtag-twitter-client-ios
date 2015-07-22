@@ -10,5 +10,6 @@ import UIKit
 
 class RootTweetTableViewController: TweetTableViewController {
     // MARK: - Navigation
+    // Need for unwind segue
     @IBAction func backToRoot(segue: UIStoryboardSegue) {}
 }

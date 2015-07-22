@@ -102,10 +102,10 @@
             </objects>
             <point key="canvasLocation" x="214" y="252"/>
         </scene>
-        <!--MentionTVC-->
+        <!--MentionsTVC-->
         <scene sceneID="VBc-uh-wKC">
             <objects>
-                <tableViewController title="MentionTVC" id="Ibh-OL-JpU" customClass="MentionsTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="MentionsTVC" id="Ibh-OL-JpU" customClass="MentionsTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="PkK-6M-CNn">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -125,7 +125,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="mdS-aV-TRK" kind="show" identifier="OpenURLInsideAppSegue" id="TYY-Vf-roU"/>
+                                    <segue destination="WmF-Gz-7LM" kind="show" identifier="" id="IOV-c3-AnY"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageMentionTableViewCell" rowHeight="230" id="cWG-dx-ibj" customClass="ImageTableViewCell" customModule="Smashtag" customModuleProvider="target">
@@ -154,7 +154,7 @@
                                 <connections>
                                     <outlet property="spinner" destination="mXi-Tg-YvC" id="Gd1-o2-e3e"/>
                                     <outlet property="tweetImageView" destination="9e4-ha-7F2" id="UFR-RX-sbF"/>
-                                    <segue destination="gYO-nc-aVh" kind="show" id="aNw-iQ-Dpb"/>
+                                    <segue destination="gYO-nc-aVh" kind="show" identifier="" id="aNw-iQ-Dpb"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -170,6 +170,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="mdS-aV-TRK" kind="show" identifier="ShowWebVC" id="rCw-lH-bzE"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hlb-wK-yTf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="8I7-E2-9kl" userLabel="Exit" sceneMemberID="exit"/>
@@ -189,7 +192,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="aFh-ie-Vob">
-                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="gYO-nc-aVh" id="ecc-9H-EYp"/>
@@ -413,7 +416,7 @@
                                     <outlet property="tweetProfileImageView" destination="1nM-Qm-hVr" id="M1s-ZY-URU"/>
                                     <outlet property="tweetScreenNameLabel" destination="f8q-ie-pB7" id="zkr-ib-H2T"/>
                                     <outlet property="tweetTextLabel" destination="4ed-QL-hSy" id="hbY-f3-DQv"/>
-                                    <segue destination="Ibh-OL-JpU" kind="show" id="Rbw-l3-oj4"/>
+                                    <segue destination="Ibh-OL-JpU" kind="show" identifier="" id="Rbw-l3-oj4"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -447,7 +450,7 @@
         <!--WebVC-->
         <scene sceneID="7Kf-qS-AEr">
             <objects>
-                <viewController id="mdS-aV-TRK" userLabel="WebVC" customClass="WebViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="WebVC" id="mdS-aV-TRK" userLabel="WebVC" customClass="WebViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zRZ-vx-f5l"/>
                         <viewControllerLayoutGuide type="bottom" id="kL6-cy-SJL"/>
@@ -457,14 +460,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XgM-qN-klY">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="mdS-aV-TRK" id="HR1-Ww-iib"/>
                                 </connections>
                             </webView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error in loading page" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BWz-kp-k2E">
-                                <rect key="frame" x="220" y="72" width="160" height="20.5"/>
+                                <rect key="frame" x="220" y="28" width="160" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="pm8-hS-BaY"/>
                                 </constraints>
@@ -507,6 +510,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WhF-MR-hWy"/>
-        <segue reference="23p-vl-4my"/>
+        <segue reference="Rbw-l3-oj4"/>
     </inferredMetricsTieBreakers>
 </document>

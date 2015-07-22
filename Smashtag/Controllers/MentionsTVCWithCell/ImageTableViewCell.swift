@@ -9,6 +9,7 @@
 import UIKit
 
 class ImageTableViewCell: UITableViewCell {
+    // MARK: - Members
     @IBOutlet private weak var tweetImageView: UIImageView!
     @IBOutlet private weak var spinner: UIActivityIndicatorView!
     

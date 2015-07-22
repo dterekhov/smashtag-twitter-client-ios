@@ -10,6 +10,7 @@ import UIKit
 
 class TweetTableViewCell: UITableViewCell
 {
+    // MARK: - Constants
     private struct Pallete {
         static let HashtagColor = UIColor.brownColor()
         static let URLColor = UIColor.blueColor()
@@ -17,12 +18,13 @@ class TweetTableViewCell: UITableViewCell
     }
     
     let profilePlaceholderImage = UIImage(named: "ProfilePlaceholderImg")
-    private(set) var tweet: Tweet?
     
-    @IBOutlet weak var tweetProfileImageView: UIImageView!
-    @IBOutlet weak var tweetScreenNameLabel: UILabel!
-    @IBOutlet weak var tweetTextLabel: UILabel!
-    @IBOutlet weak var tweetCreatedLabel: UILabel!
+    // MARK: - Members
+    private(set) var tweet: Tweet?
+    @IBOutlet private weak var tweetProfileImageView: UIImageView!
+    @IBOutlet private weak var tweetScreenNameLabel: UILabel!
+    @IBOutlet private weak var tweetTextLabel: UILabel!
+    @IBOutlet private weak var tweetCreatedLabel: UILabel!
     
     // MARK: - Setups
     func setup(tweet: Tweet, tableView: UITableView, indexPath: NSIndexPath) {
@@ -83,7 +85,7 @@ class TweetTableViewCell: UITableViewCell
         tweetTextLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
     }
     
-    // MARK: - Utils
+    // MARK: - Helpers
     private func colorizeAttributedStringByKeywords(inout attributedString: NSMutableAttributedString, keywords: [Tweet.IndexedKeyword], highlightingColor: UIColor) {
         for keyword in keywords {
             attributedString.addAttribute(NSForegroundColorAttributeName, value: highlightingColor, range: keyword.nsrange)

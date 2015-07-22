@@ -57,7 +57,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         return imageView
     }
     
-    // MARK: - Utils
+    // MARK: - Helpers
     private func refreshUI() {
         if scrollView == nil {
             return

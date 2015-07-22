@@ -10,13 +10,15 @@ import UIKit
 import Foundation
 
 class ResentSearchViewController: UIViewController, UITableViewDataSource {
-    private struct Constants {
-        static let CellIdentifier = "RecentSearchTableViewCell"
-        static let SelectRowSegue = "ShowTweetTVC"
+    // MARK: - Constants
+    private struct Storyboard {
+        static let CellID = "RecentSearchTableViewCell"
+        static let ShowTweetTVC = "ShowTweetTVC"
     }
     
-    @IBOutlet weak var tableView: UITableView!
-    var searchQueries = [String]();
+    // MARK: - Members
+    @IBOutlet private weak var tableView: UITableView!
+    private var searchQueries = [String]();
     
     // MARK: - Lifecycle
     override func viewWillAppear(animated: Bool) {
@@ -32,14 +34,15 @@ class ResentSearchViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellID) as! UITableViewCell
         cell.textLabel?.text = searchQueries[indexPath.row]
         return cell
     }
     
+    // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let tweetTVC = segue.destinationViewController as? TweetTableViewController {
-            if segue.identifier == Constants.SelectRowSegue {
+            if segue.identifier == Storyboard.ShowTweetTVC {
                 if let cellText = (sender as? UITableViewCell)?.textLabel?.text {
                     tweetTVC.searchText = cellText
                     tweetTVC.title = cellText

@@ -11,19 +11,24 @@ import UIKit
 class MentionsTableViewController: UITableViewController, UIActionSheetDelegate {
     // MARK: - Constants
     private struct Storyboard {
+        // Cell's identifiers
         static let MentionTableViewCellID = "MentionTableViewCell"
         static let ImageMentionTableViewCellID = "ImageMentionTableViewCell"
-        static let OpenURLInsideAppSegue = "OpenURLInsideAppSegue"
+        
+        // Storyboard's segue identifiers
+        static let ShowWebVC = "ShowWebVC"
     }
     
     private struct Constants {
         static let appName = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as! String
         
+        // Category names
         static let ImageCategoryName = "Images"
         static let HashtagCategoryName = "Hashtags"
         static let UserCategoryName = "Users"
         static let URLCategoryName = "URLs"
         
+        // UIActionSheet button indexes
         static let OpenURLInsideApp = 1
         static let OpenURLInSafari = 2
     }
@@ -49,7 +54,7 @@ class MentionsTableViewController: UITableViewController, UIActionSheetDelegate 
         }
     }
     
-    // MARK: -
+    // MARK: - Members
     private var openingURL: NSURL?
     
     // MARK: - Public API
@@ -128,17 +133,13 @@ class MentionsTableViewController: UITableViewController, UIActionSheetDelegate 
         }
     }
     
-    // TODO: Исправить переходы (следить за segue.identifier) в методах: shouldPerformSegueWithIdentifier и prepareForSegue
-    
     // MARK: - Navigation
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
-        // Can perform segue to TweetTVC only for tapping on Hashtag or User cell
-        if let cell = sender as? UITableViewCell {
-            let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
-            let category = mentionCategories[indexPath.section]
-            switch (category.name) {
+        if let categoryWithMentionTuple = categoryWithMentionByTappedSender(sender) {
+            switch (categoryWithMentionTuple.category.name) {
+            // Can perform segue: Never
             case Constants.URLCategoryName:
-                switch (category.mentions[indexPath.row]) {
+                switch (categoryWithMentionTuple.mention) {
                 case .Keyword(let keyword):
                     openingURL = NSURL(string: keyword)!
                     let test = Constants.appName
@@ -148,10 +149,12 @@ class MentionsTableViewController: UITableViewController, UIActionSheetDelegate 
                 default:
                     return false
                 }
+            // Can perform segue: Always
             case Constants.HashtagCategoryName, Constants.UserCategoryName: return true
-            // Can perform segue to imageVC only if image is set
+            // Can perform segue: Only if image is set
             case Constants.ImageCategoryName:
                 return (sender as? ImageTableViewCell)?.tweetImage != nil
+            // Can perform segue for unknown Caterory's names: Never
             default: return false
             }
         }
@@ -159,14 +162,12 @@ class MentionsTableViewController: UITableViewController, UIActionSheetDelegate 
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let cell = sender as? UITableViewCell {
-            let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
-            let category = mentionCategories[indexPath.section]
-            switch (category.mentions[indexPath.row]) {
+        if let categoryWithMentionTuple = categoryWithMentionByTappedSender(sender) {
+            switch (categoryWithMentionTuple.mention) {
             case .Keyword(var keyword):
                 if let tweetTVC = segue.destinationViewController as? TweetTableViewController {
                     tweetTVC.title = self.title
-                    if category.name == Constants.UserCategoryName {
+                    if categoryWithMentionTuple.category.name == Constants.UserCategoryName {
                         keyword += " OR from:" + keyword
                     }
                     tweetTVC.searchText = keyword
@@ -179,7 +180,7 @@ class MentionsTableViewController: UITableViewController, UIActionSheetDelegate 
                     }
                 }
             }
-        } else if segue.identifier == Storyboard.OpenURLInsideAppSegue {
+        } else if segue.identifier == Storyboard.ShowWebVC {
             if let webVC = segue.destinationViewController as? WebViewController where openingURL != nil {
                 webVC.URL = openingURL
             }
@@ -189,10 +190,21 @@ class MentionsTableViewController: UITableViewController, UIActionSheetDelegate 
     // MARK: - UIActionSheetDelegate
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         if buttonIndex == Constants.OpenURLInsideApp {
-            performSegueWithIdentifier(Storyboard.OpenURLInsideAppSegue, sender: actionSheet)
+            performSegueWithIdentifier(Storyboard.ShowWebVC, sender: actionSheet)
         } else if buttonIndex == Constants.OpenURLInSafari {
             UIApplication.sharedApplication().openURL(openingURL!)
         }
         openingURL = nil
+    }
+    
+    // MARK: - Helpers
+    private func categoryWithMentionByTappedSender(sender: AnyObject?) -> (category: MentionCategory, mention: Mention)? {
+        if let cell = sender as? UITableViewCell {
+            if let indexPath = tableView.indexPathForCell(cell) {
+                let category = mentionCategories[indexPath.section]
+                return (category, category.mentions[indexPath.row])
+            }
+        }
+        return nil
     }
 }
