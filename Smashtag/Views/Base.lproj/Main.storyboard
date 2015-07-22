@@ -494,7 +494,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="backToRootItem" destination="O0N-SG-hx2" id="MAj-zJ-mrW"/>
                         <outlet property="errorLabel" destination="BWz-kp-k2E" id="hgm-yP-yjg"/>
                         <outlet property="webView" destination="XgM-qN-klY" id="amZ-63-wIi"/>
                     </connections>

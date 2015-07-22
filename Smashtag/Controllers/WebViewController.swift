@@ -19,8 +19,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
             }
         }
     }
-    @IBOutlet weak var errorLabel: UILabel!
-    @IBOutlet weak var backToRootItem: UIBarButtonItem!
+    @IBOutlet private weak var errorLabel: UILabel!
     
     // MARK: - Public API
     var URL: NSURL?
@@ -29,27 +28,21 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let backItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Rewind, target: self, action: "navigateToPreviousWebPage:")
-        let forwardItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FastForward, target: self, action: "navigateToForwardWebPage:")
-        let refreshItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreshWebPage:")
-        navigationItem.rightBarButtonItems = [backToRootItem, refreshItem, forwardItem, backItem]
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Rewind, target: self, action: "navigateToPreviousWebPageOrVC:")
     }
     
     // MARK: - BarButtonItem actions
-    @objc private func navigateToPreviousWebPage(sender: UIBarButtonItem) {
-        webView.goBack()
-    }
-    
-    @objc private func navigateToForwardWebPage(sender: UIBarButtonItem) {
-        webView.goForward()
-    }
-    
-    @objc private func refreshWebPage(sender: UIBarButtonItem) {
-        webView.reload()
+    @objc private func navigateToPreviousWebPageOrVC(sender: UIBarButtonItem) {
+        if webView.canGoBack {
+            webView.goBack()
+        } else {
+            navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     // MARK: - UIWebViewDelegate
     func webViewDidStartLoad(webView: UIWebView) {
+        
         errorLabel.hidden = true
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     }
