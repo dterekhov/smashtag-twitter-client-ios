@@ -9,29 +9,41 @@
 import Foundation
 
 class SearchQuerySaver {
+    // MARK: - Constants
     private struct Constants {
-        static let savedQueriesKey = "savedQueriesKey"
+        static let storedQueriesKey = "savedQueriesKey"
         static let maxSavedQueriesCount = 10;
     }
     
+    private static let userDefaults = NSUserDefaults.standardUserDefaults()
+    
+    // MARK: - Public API
     static func saveSearchQuery(queryString: String) {
-        var savedQueries = lastSearchQueries()
-        // Store only maxSavedQueriesCount
-        if savedQueries.count == Constants.maxSavedQueriesCount {
-            savedQueries.removeLast()
+        // Remove item if exist
+        var localQueries = storedSearchQueries
+        if let existQueryIndex = find(localQueries, queryString) {
+            localQueries.removeAtIndex(existQueryIndex)
         }
         
-        // Add only uniq queryString
-        if !contains(savedQueries, queryString) {
-            savedQueries.insert(queryString, atIndex: 0)
-            NSUserDefaults.standardUserDefaults().setObject(savedQueries, forKey: Constants.savedQueriesKey)
+        // Add new item
+        localQueries.insert(queryString, atIndex: 0)
+        // Clear old overflow items
+        while localQueries.count > Constants.maxSavedQueriesCount {
+            localQueries.removeLast()
         }
+        
+        // Save
+        storedSearchQueries = localQueries
     }
     
-    static func lastSearchQueries() -> [String] {
-        if let savedQueries = NSUserDefaults.standardUserDefaults().arrayForKey(Constants.savedQueriesKey) as? [String]  {
-            return savedQueries;
-        }
-        return []
+    static func removeSearchQueryAtIndex(index: Int) {
+        var localQueries = storedSearchQueries
+        localQueries.removeAtIndex(index)
+        storedSearchQueries = localQueries
+    }
+    
+    static var storedSearchQueries: [String] {
+        get { return userDefaults.arrayForKey(Constants.storedQueriesKey) as? [String] ?? [] }
+        set { userDefaults.setObject(newValue, forKey: Constants.storedQueriesKey) }
     }
 }

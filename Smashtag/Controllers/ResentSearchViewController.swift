@@ -18,25 +18,30 @@ class ResentSearchViewController: UIViewController, UITableViewDataSource {
     
     // MARK: - Members
     @IBOutlet private weak var tableView: UITableView!
-    private var searchQueries = [String]();
     
     // MARK: - Lifecycle
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         tableView.reloadData()
-        searchQueries = SearchQuerySaver.lastSearchQueries()
     }
     
     // MARK: - UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchQueries.count;
+        return SearchQuerySaver.storedSearchQueries.count;
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellID) as! UITableViewCell
-        cell.textLabel?.text = searchQueries[indexPath.row]
+        cell.textLabel?.text = SearchQuerySaver.storedSearchQueries[indexPath.row]
         return cell
+    }
+    
+    // MARK: - UITableViewDelegate
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            SearchQuerySaver.removeSearchQueryAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        }
     }
     
     // MARK: - Navigation
