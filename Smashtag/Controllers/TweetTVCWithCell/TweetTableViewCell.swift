@@ -27,14 +27,16 @@ class TweetTableViewCell: UITableViewCell
     @IBOutlet private weak var tweetCreatedLabel: UILabel!
     
     // MARK: - Setups
-    func setup(tweet: Tweet, tableView: UITableView, indexPath: NSIndexPath) {
+    func setup(tweet: Tweet) {
         self.tweet = tweet
         
         // Setup image field
         if let profileImageURL = tweet.user.profileImageURL {
             tweetProfileImageView.setImage(profileImageURL, placeholderImage: profilePlaceholderImage, success: {
-                if let updateCell = tableView.cellForRowAtIndexPath(indexPath) as? TweetTableViewCell {
-                    updateCell.tweetProfileImageView.image = $0
+                if profileImageURL == self.tweet!.user.profileImageURL {
+                    self.tweetProfileImageView.image = $0
+                } else {
+                    println("Wrong")
                 }
                 }, failure: nil)
         }

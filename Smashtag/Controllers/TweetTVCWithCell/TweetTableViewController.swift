@@ -112,7 +112,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
-        cell.setup(tweets[indexPath.section][indexPath.row], tableView: tableView, indexPath: indexPath)
+        cell.setup(tweets[indexPath.section][indexPath.row])
         return cell
     }
     

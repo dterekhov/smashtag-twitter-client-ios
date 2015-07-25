@@ -11,8 +11,8 @@ import Foundation
 class SearchQuerySaver {
     // MARK: - Constants
     private struct Constants {
-        static let storedQueriesKey = "savedQueriesKey"
-        static let maxSavedQueriesCount = 10;
+        static let storedQueriesKey = "storedQueriesKey"
+        static let maxStoredQueriesCount = 10;
     }
     
     private static let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -28,7 +28,7 @@ class SearchQuerySaver {
         // Add new item
         localQueries.insert(queryString, atIndex: 0)
         // Clear old overflow items
-        while localQueries.count > Constants.maxSavedQueriesCount {
+        while localQueries.count > Constants.maxStoredQueriesCount {
             localQueries.removeLast()
         }
         
