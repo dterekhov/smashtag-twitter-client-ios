@@ -43,7 +43,10 @@ extension UIImageView {
         image = placeholderImage;
         
         // Optional can to add spinner
-        if showSpinner { spinner = createSpinner() }
+        if showSpinner {
+            spinner?.stopAnimating() // In reuse imageView case: stopAnimating if spinner != nil
+            spinner = createSpinner()
+        }
         
         if let cachedImageData = NSCache.sharedInstance.objectForKey(URL) as? NSData {
             // Get image from cache
