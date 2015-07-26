@@ -10,6 +10,12 @@ import UIKit
 
 class TweetTableViewController: UITableViewController, UITextFieldDelegate
 {
+    private struct Storyboard {
+        static let CellReuseIdentifier = "Tweet"
+        static let showMentionVC = "showMentionVC"
+        static let showImageCVC = "showImageCVC"
+    }
+    
     // MARK: - Public API
     var tweets = [[Tweet]]()
 
@@ -31,7 +37,15 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "contentSizeCategoryDidChanged", name:UIContentSizeCategoryDidChangeNotification, object: nil)
         
-        refresh()
+        if tweets.count == 0 {
+            refresh()
+        } else {
+            showImagesButton.enabled = true // Can segue by button tap if tweets.count > 0
+            searchTextField.text = ""
+            let tweet = tweets.first!.first!
+            title = "Tweets by " + tweet.user.name
+            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
+        }
     }
     
     deinit {
@@ -65,6 +79,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
                     if newTweets.count > 0 {
                         self.lastSuccessfulRequest = request // oops, forgot this line in lecture
                         self.tweets.insert(newTweets, atIndex: 0)
+                        self.showImagesButton.enabled = true // Can segue by button tap if tweets.count > 0
                         self.tableView.reloadData()
                     }
                     sender?.endRefreshing()
@@ -88,16 +103,14 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         }
     }
     
+    @IBOutlet weak var showImagesButton: UIButton!
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == searchTextField {
             textField.resignFirstResponder()
             searchText = textField.text
         }
         return true
-    }
-    
-    private struct Storyboard {
-        static let CellReuseIdentifier = "Tweet"
     }
     
     // MARK: - UITableViewDataSource
@@ -118,13 +131,13 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     
     // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-        if let mentionsTVC = segue.destinationViewController as? MentionsTableViewController {
+        if let mentionsTVC = segue.destinationViewController as? MentionTableViewController where segue.identifier == Storyboard.showMentionVC {
             if let cell = sender as? TweetTableViewCell {
                 mentionsTVC.tweet = cell.tweet
                 mentionsTVC.title = "\(cell.tweet!.user)"
             }
+        } else if let imageCVC = segue.destinationViewController as? ImageCollectionViewController where segue.identifier == Storyboard.showImageCVC {
+            imageCVC.tweets = tweets
         }
-    }    
+    }
 }

@@ -13,6 +13,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="E03-R2-Ly9">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="54F-qd-7AK">
                             <size key="itemSize" width="120" height="120"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -26,8 +27,23 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n3K-3q-6yV">
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                        </imageView>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="n3K-3q-6yV" secondAttribute="trailing" id="4N9-1b-0Xo"/>
+                                    <constraint firstItem="n3K-3q-6yV" firstAttribute="top" secondItem="GS5-D3-VUw" secondAttribute="top" id="fsE-vc-huk"/>
+                                    <constraint firstAttribute="bottom" secondItem="n3K-3q-6yV" secondAttribute="bottom" id="jSp-Oa-aL6"/>
+                                    <constraint firstItem="n3K-3q-6yV" firstAttribute="leading" secondItem="GS5-D3-VUw" secondAttribute="leading" id="pKh-Z7-Rwo"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="n3K-3q-6yV" id="chv-gp-baR"/>
+                                    <segue destination="WmF-Gz-7LM" kind="show" id="36t-cV-X90"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -57,7 +73,7 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                 </textField>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vyv-G5-93v">
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vyv-G5-93v">
                                     <rect key="frame" x="554" y="0.0" width="46" height="46"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="vyv-G5-93v" secondAttribute="height" multiplier="1:1" id="9pr-iW-qNk"/>
@@ -67,7 +83,7 @@
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <segue destination="qRh-k1-fXD" kind="show" id="72Z-GK-qAz"/>
+                                        <segue destination="qRh-k1-fXD" kind="show" identifier="showImageCVC" id="72Z-GK-qAz"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -140,7 +156,7 @@
                                     <outlet property="tweetProfileImageView" destination="cnE-1d-1G3" id="vrL-uO-slN"/>
                                     <outlet property="tweetScreenNameLabel" destination="Jj6-GE-mmF" id="WOh-8Z-ANq"/>
                                     <outlet property="tweetTextLabel" destination="gcg-Q8-sZh" id="rQt-Tb-S0H"/>
-                                    <segue destination="Ibh-OL-JpU" kind="show" id="23p-vl-4my"/>
+                                    <segue destination="Ibh-OL-JpU" kind="show" identifier="showMentionVC" id="23p-vl-4my"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -158,6 +174,7 @@
                     </refreshControl>
                     <connections>
                         <outlet property="searchTextField" destination="ALr-b2-w3E" id="sHT-OT-T4Q"/>
+                        <outlet property="showImagesButton" destination="vyv-G5-93v" id="c6Z-aM-AFz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YdZ-xU-89r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -167,7 +184,7 @@
         <!--MentionsTVC-->
         <scene sceneID="VBc-uh-wKC">
             <objects>
-                <tableViewController title="MentionsTVC" id="Ibh-OL-JpU" customClass="MentionsTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="MentionsTVC" id="Ibh-OL-JpU" customClass="MentionTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="PkK-6M-CNn">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -406,12 +423,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <textField key="tableHeaderView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Twitter Search Query" minimumFontSize="17" id="28e-Ye-epN">
-                            <rect key="frame" x="0.0" y="-30" width="600" height="30"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="9Ot-Zg-lXy" userLabel="headerView">
+                            <rect key="frame" x="0.0" y="64" width="600" height="46"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
-                        </textField>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Twitter Search Query" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="okN-dk-5wu" userLabel="searchTextField">
+                                    <rect key="frame" x="8" y="8" width="546" height="30"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kcl-ff-8pe">
+                                    <rect key="frame" x="554" y="0.0" width="46" height="46"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="Kcl-ff-8pe" secondAttribute="height" multiplier="1:1" id="f2l-if-REm"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                    <state key="normal" image="ico_stack_of_photos">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <segue destination="qRh-k1-fXD" kind="show" identifier="showImageCVC" id="8eo-SW-YbM"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="centerY" secondItem="okN-dk-5wu" secondAttribute="centerY" id="9Bd-53-LCO"/>
+                                <constraint firstItem="Kcl-ff-8pe" firstAttribute="leading" secondItem="okN-dk-5wu" secondAttribute="trailing" id="CZL-R4-Ysf"/>
+                                <constraint firstAttribute="trailing" secondItem="Kcl-ff-8pe" secondAttribute="trailing" id="Q6y-wN-Q1E"/>
+                                <constraint firstAttribute="bottom" secondItem="Kcl-ff-8pe" secondAttribute="bottom" id="iB2-0A-q8C"/>
+                                <constraint firstItem="Kcl-ff-8pe" firstAttribute="top" secondItem="9Ot-Zg-lXy" secondAttribute="top" id="odn-PN-w1m"/>
+                                <constraint firstItem="okN-dk-5wu" firstAttribute="leading" secondItem="9Ot-Zg-lXy" secondAttribute="leading" constant="8" id="oyH-6I-Q9T"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Tweet" rowHeight="162" id="PTe-uJ-90Q" customClass="TweetTableViewCell" customModule="Smashtag" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -471,7 +515,7 @@
                                     <outlet property="tweetProfileImageView" destination="1nM-Qm-hVr" id="M1s-ZY-URU"/>
                                     <outlet property="tweetScreenNameLabel" destination="f8q-ie-pB7" id="zkr-ib-H2T"/>
                                     <outlet property="tweetTextLabel" destination="4ed-QL-hSy" id="hbY-f3-DQv"/>
-                                    <segue destination="Ibh-OL-JpU" kind="show" identifier="" id="Rbw-l3-oj4"/>
+                                    <segue destination="Ibh-OL-JpU" kind="show" identifier="showMentionVC" id="Rbw-l3-oj4"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -494,7 +538,8 @@
                         </connections>
                     </refreshControl>
                     <connections>
-                        <outlet property="searchTextField" destination="28e-Ye-epN" id="xmE-4K-lil"/>
+                        <outlet property="searchTextField" destination="okN-dk-5wu" id="L02-Na-Cen"/>
+                        <outlet property="showImagesButton" destination="Kcl-ff-8pe" id="NS4-d5-ODp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DCu-yX-Ld4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -564,6 +609,8 @@
         <image name="ico_stack_of_photos" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="36t-cV-X90"/>
+        <segue reference="72Z-GK-qAz"/>
         <segue reference="WhF-MR-hWy"/>
         <segue reference="23p-vl-4my"/>
     </inferredMetricsTieBreakers>

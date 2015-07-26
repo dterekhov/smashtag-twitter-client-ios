@@ -8,87 +8,59 @@
 
 import UIKit
 
-let reuseIdentifier = "Cell"
-
-class ImageCollectionViewController: UICollectionViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+class ImageCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    private struct Storyboard {
+        static let CellID = "ImageCollectionViewCell"
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    var tweets: [[Tweet]] = [] {
+        didSet {
+            images = tweets.flatMap({ $0 })
+                .map { tweet in
+                    tweet.media.map { TweetMedia(tweet: tweet, mediaItem: $0) }
+                    }.flatMap({ $0 })
+        }
     }
-
-    /*
+    
+    private var images = [TweetMedia]()
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        //#warning Incomplete method implementation -- Return the number of sections
-        return 0
+        if let tweetTVC = segue.destinationViewController as? TweetTableViewController {
+            if let imageCell = sender as? ImageCollectionViewCell, let tweetMedia = imageCell.tweetMedia {
+                tweetTVC.tweets = [[tweetMedia.tweet]]
+            }
+        }
     }
 
-
+    // MARK: - UICollectionViewDataSource
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //#warning Incomplete method implementation -- Return the number of items in the section
-        return 0
+        return images.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
-    
-        // Configure the cell
-    
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Storyboard.CellID, forIndexPath: indexPath) as! ImageCollectionViewCell
+        cell.tweetMedia = images[indexPath.row]
         return cell
     }
 
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+    // MARK: - UICollectionViewDelegateFlowLayout
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let ratio = CGFloat(images[indexPath.row].mediaItem.aspectRatio)
+        let collectionViewWidth = collectionView.bounds.size.width
+        let itemSize = (collectionViewLayout as! UICollectionViewFlowLayout).itemSize
+        
+        var size = CGSize(width: itemSize.width * 1, height: itemSize.height * 1)
+        if ratio > 1 {
+            size.height /= ratio
+        } else {
+            size.width *= ratio
+        }
+        
+        if size.width > collectionViewWidth {
+            size.width = collectionViewWidth
+            size.height = size.width / ratio
+        }
+        return size
     }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
-
 }

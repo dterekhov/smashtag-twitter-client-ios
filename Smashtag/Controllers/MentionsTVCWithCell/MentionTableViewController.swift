@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MentionsTableViewController: UITableViewController, UIActionSheetDelegate {
+class MentionTableViewController: UITableViewController, UIActionSheetDelegate {
     // MARK: - Constants
     private struct Storyboard {
         // Cell's identifiers
