@@ -24,6 +24,8 @@
 		095AAD031B5B8E3E0054A4C8 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095AAD021B5B8E3E0054A4C8 /* ImageViewController.swift */; };
 		0973C7981B5D8E5A00D6BF9E /* RootTweetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0973C7971B5D8E5A00D6BF9E /* RootTweetTableViewController.swift */; };
 		0973C79A1B5E123500D6BF9E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0973C7991B5E123500D6BF9E /* WebViewController.swift */; };
+		098540471B6505BF00AC06E5 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098540461B6505BF00AC06E5 /* ImageCollectionViewCell.swift */; };
+		098540491B6505DD00AC06E5 /* ImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098540481B6505DD00AC06E5 /* ImageCollectionViewController.swift */; };
 		EC6876171A898EF4006B5FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6876161A898EF4006B5FDB /* AppDelegate.swift */; };
 		EC68762D1A898EF4006B5FDB /* SmashtagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC68762C1A898EF4006B5FDB /* SmashtagTests.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +59,8 @@
 		095AAD021B5B8E3E0054A4C8 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		0973C7971B5D8E5A00D6BF9E /* RootTweetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTweetTableViewController.swift; sourceTree = "<group>"; };
 		0973C7991B5E123500D6BF9E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		098540461B6505BF00AC06E5 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		098540481B6505DD00AC06E5 /* ImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewController.swift; sourceTree = "<group>"; };
 		EC6876111A898EF4006B5FDB /* Smashtag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smashtag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC6876161A898EF4006B5FDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC6876261A898EF4006B5FDB /* SmashtagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmashtagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +111,7 @@
 			children = (
 				09538EBC1B5A614000AD2805 /* TweetTVCWithCell */,
 				09538EDF1B5ADD9C00AD2805 /* MentionsTVCWithCell */,
+				098540451B65059200AC06E5 /* ImageCVCWithCell */,
 				09538EBB1B5A614000AD2805 /* ResentSearchViewController.swift */,
 				095AAD021B5B8E3E0054A4C8 /* ImageViewController.swift */,
 				0973C7971B5D8E5A00D6BF9E /* RootTweetTableViewController.swift */,
@@ -149,6 +154,15 @@
 				09538EDD1B5AA71A00AD2805 /* ImageTableViewCell.swift */,
 			);
 			path = MentionsTVCWithCell;
+			sourceTree = "<group>";
+		};
+		098540451B65059200AC06E5 /* ImageCVCWithCell */ = {
+			isa = PBXGroup;
+			children = (
+				098540481B6505DD00AC06E5 /* ImageCollectionViewController.swift */,
+				098540461B6505BF00AC06E5 /* ImageCollectionViewCell.swift */,
+			);
+			path = ImageCVCWithCell;
 			sourceTree = "<group>";
 		};
 		EC6876081A898EF4006B5FDB = {
@@ -301,6 +315,7 @@
 			files = (
 				EC6876171A898EF4006B5FDB /* AppDelegate.swift in Sources */,
 				09538EC01B5A614000AD2805 /* ResentSearchViewController.swift in Sources */,
+				098540471B6505BF00AC06E5 /* ImageCollectionViewCell.swift in Sources */,
 				09538EB61B5A610C00AD2805 /* Tweet.swift in Sources */,
 				09538EB51B5A610C00AD2805 /* MediaItem.swift in Sources */,
 				09538EAA1B5A60E300AD2805 /* SearchQuerySaver.swift in Sources */,
@@ -312,6 +327,7 @@
 				09538EB71B5A610C00AD2805 /* TwitterRequest.swift in Sources */,
 				09538EDE1B5AA71A00AD2805 /* ImageTableViewCell.swift in Sources */,
 				09538EAB1B5A60E300AD2805 /* UIImageViewCacheExtension.swift in Sources */,
+				098540491B6505DD00AC06E5 /* ImageCollectionViewController.swift in Sources */,
 				0973C79A1B5E123500D6BF9E /* WebViewController.swift in Sources */,
 				09538EC11B5A614000AD2805 /* TweetTableViewCell.swift in Sources */,
 			);

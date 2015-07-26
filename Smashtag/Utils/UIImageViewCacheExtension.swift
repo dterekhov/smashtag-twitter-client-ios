@@ -19,23 +19,19 @@ extension NSCache {
 }
 
 // Declare a global var to produce a unique address as the assoc object handle
-var AssociatedObjectHandle: UInt8 = 0
+var AssociatedURLOfImageKey: UInt8 = 0
+var AssociatedSpinnerKey: UInt8 = 0
 
 extension UIImageView {
-    private var URLOfImage:NSURL? {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedObjectHandle) as? NSURL
-        }
-        set {
-            objc_setAssociatedObject(self, &AssociatedObjectHandle, newValue, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
-        }
-    }
-    
     func setImage(URL: NSURL, placeholderImage: UIImage?) {
-        setImage(URL, placeholderImage: placeholderImage, success: nil, failure: nil)
+        setImage(URL, placeholderImage: placeholderImage, showSpinner:false, success: nil, failure: nil)
     }
     
-    func setImage(URL: NSURL, placeholderImage: UIImage?, success: (Void -> Void)?, failure: (NSError -> Void)?) {
+    func setImage(URL: NSURL, showSpinner: Bool) {
+        setImage(URL, placeholderImage: nil, showSpinner: showSpinner, success: nil, failure: nil)
+    }
+    
+    private func setImage(URL: NSURL, placeholderImage: UIImage?, showSpinner: Bool, success: (Void -> Void)?, failure: (NSError -> Void)?) {
         // Helper to create errors
         var createError: (code: Int) -> NSError = {
             return NSError(domain: NSBundle.mainBundle().bundleIdentifier!, code: $0, userInfo: nil)
@@ -46,12 +42,17 @@ extension UIImageView {
         // In reuse imageView case: setting placeholder or nil to clear image
         image = placeholderImage;
         
+        // Optional can to add spinner
+        if showSpinner { spinner = createSpinner() }
+        
         if let cachedImageData = NSCache.sharedInstance.objectForKey(URL) as? NSData {
             // Get image from cache
             if let cachedImage = UIImage(data: cachedImageData) {
                 image = cachedImage
+                spinner?.stopAnimating()
                 success?()
             } else {
+                spinner?.stopAnimating()
                 failure?(createError(code: NSURLErrorCannotDecodeRawData))
             }
         } else {
@@ -69,16 +70,54 @@ extension UIImageView {
                         if URL == self.URLOfImage {
                             if let loadedImage = UIImage(data: loadedImageData) {
                                 self.image = loadedImage
+                                self.spinner?.stopAnimating()
                                 success?()
                             } else {
+                                self.spinner?.stopAnimating()
                                 failure?(createError(code: NSURLErrorDownloadDecodingFailedToComplete))
                             }
                         }
                     }
                 } else {
+                    self.spinner?.stopAnimating()
                     failure?(error!)
                 }
             }
         }
+    }
+    
+    // MARK: - Helpers
+    private var URLOfImage: NSURL? {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedURLOfImageKey) as? NSURL
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedURLOfImageKey, newValue, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+        }
+    }
+    
+    private var spinner: UIActivityIndicatorView? {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedSpinnerKey) as? UIActivityIndicatorView
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedSpinnerKey, newValue, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+        }
+    }
+    
+    private func createSpinner() -> UIActivityIndicatorView {
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        spinner.color = UIColor.blackColor()
+        spinner.hidesWhenStopped = true
+        spinner.startAnimating()
+        addSubview(spinner)
+        
+        // Create constraints for spinner
+        spinner.setTranslatesAutoresizingMaskIntoConstraints(false)
+        let centerXConstraint = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: spinner, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0.0)
+        let centerYConstraint = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: spinner, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: 0.0)
+        addConstraints([centerXConstraint, centerYConstraint])
+        
+        return spinner
     }
 }

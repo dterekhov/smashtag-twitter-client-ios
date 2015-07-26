@@ -11,18 +11,13 @@ import UIKit
 class ImageTableViewCell: UITableViewCell {
     // MARK: - Members
     @IBOutlet private weak var tweetImageView: UIImageView!
-    @IBOutlet private weak var spinner: UIActivityIndicatorView!
     
     // MARK: - Public API
     var URL: NSURL? {
         didSet {
-            if URL == nil { return }
-            
-            tweetImageView.setImage(URL!, placeholderImage: nil, success: {
-                self.spinner.stopAnimating()
-                }, failure: { (_) -> () in
-                    self.spinner.stopAnimating()
-            })
+            if URL != nil {
+                tweetImageView.setImage(URL!, showSpinner: true)
+            }
         }
     }
     

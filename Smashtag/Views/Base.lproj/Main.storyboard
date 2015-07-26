@@ -2,9 +2,44 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="L3q-z0-ia7">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Image Collection View Controller-->
+        <scene sceneID="jHI-ks-Wgh">
+            <objects>
+                <collectionViewController id="qRh-k1-fXD" customClass="ImageCollectionViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="E03-R2-Ly9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="54F-qd-7AK">
+                            <size key="itemSize" width="120" height="120"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="1" minY="1" maxX="1" maxY="1"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCollectionViewCell" id="GS5-D3-VUw" customClass="ImageCollectionViewCell" customModule="Smashtag" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="qRh-k1-fXD" id="H29-Am-UwL"/>
+                            <outlet property="delegate" destination="qRh-k1-fXD" id="PF8-wQ-gUR"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NoG-ll-u2P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="214" y="-458"/>
+        </scene>
         <!--Root Tweet Table View Controller-->
         <scene sceneID="OXZ-Mo-UfU">
             <objects>
@@ -13,14 +48,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <textField key="tableHeaderView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Twitter Search Query" minimumFontSize="17" id="ALr-b2-w3E">
-                            <rect key="frame" x="0.0" y="-30" width="600" height="30"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="XBg-JT-Z2F" userLabel="headerView">
+                            <rect key="frame" x="0.0" y="64" width="600" height="46"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
-                        </textField>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Twitter Search Query" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ALr-b2-w3E" userLabel="searchTextField">
+                                    <rect key="frame" x="8" y="8" width="546" height="30"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vyv-G5-93v">
+                                    <rect key="frame" x="554" y="0.0" width="46" height="46"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="vyv-G5-93v" secondAttribute="height" multiplier="1:1" id="9pr-iW-qNk"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                    <state key="normal" image="ico_stack_of_photos">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <segue destination="qRh-k1-fXD" kind="show" id="72Z-GK-qAz"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="vyv-G5-93v" firstAttribute="top" secondItem="XBg-JT-Z2F" secondAttribute="top" id="0ey-aq-86D"/>
+                                <constraint firstItem="vyv-G5-93v" firstAttribute="leading" secondItem="ALr-b2-w3E" secondAttribute="trailing" id="Mcl-Pe-f1B"/>
+                                <constraint firstAttribute="centerY" secondItem="ALr-b2-w3E" secondAttribute="centerY" id="YuM-8H-127"/>
+                                <constraint firstAttribute="bottom" secondItem="vyv-G5-93v" secondAttribute="bottom" id="piY-zF-5vQ"/>
+                                <constraint firstItem="ALr-b2-w3E" firstAttribute="leading" secondItem="XBg-JT-Z2F" secondAttribute="leading" constant="8" id="qXV-HA-D2t"/>
+                                <constraint firstAttribute="trailing" secondItem="vyv-G5-93v" secondAttribute="trailing" id="u1d-cB-22x"/>
+                            </constraints>
+                        </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Tweet" rowHeight="162" id="hGs-lO-sU2" customClass="TweetTableViewCell" customModule="Smashtag" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Tweet" rowHeight="162" id="hGs-lO-sU2" userLabel="tweetCell" customClass="TweetTableViewCell" customModule="Smashtag" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hGs-lO-sU2" id="aQE-Er-hsb">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -137,22 +199,15 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9e4-ha-7F2">
                                             <rect key="frame" x="0.0" y="8" width="600" height="213.5"/>
                                         </imageView>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="mXi-Tg-YvC">
-                                            <rect key="frame" x="282" y="96" width="37" height="37"/>
-                                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="9e4-ha-7F2" firstAttribute="top" secondItem="gXe-bY-vGd" secondAttribute="topMargin" id="ALW-5h-oI7"/>
-                                        <constraint firstItem="9e4-ha-7F2" firstAttribute="centerY" secondItem="mXi-Tg-YvC" secondAttribute="centerY" id="JXn-mj-sCX"/>
                                         <constraint firstItem="9e4-ha-7F2" firstAttribute="trailing" secondItem="gXe-bY-vGd" secondAttribute="trailingMargin" constant="8" id="JdB-i5-tBN"/>
                                         <constraint firstItem="9e4-ha-7F2" firstAttribute="bottom" secondItem="gXe-bY-vGd" secondAttribute="bottomMargin" id="Jl5-O7-vr8"/>
-                                        <constraint firstItem="9e4-ha-7F2" firstAttribute="centerX" secondItem="mXi-Tg-YvC" secondAttribute="centerX" id="ZCd-A2-7nS"/>
                                         <constraint firstItem="9e4-ha-7F2" firstAttribute="leading" secondItem="gXe-bY-vGd" secondAttribute="leadingMargin" constant="-8" id="db6-SD-lHK"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="spinner" destination="mXi-Tg-YvC" id="Gd1-o2-e3e"/>
                                     <outlet property="tweetImageView" destination="9e4-ha-7F2" id="UFR-RX-sbF"/>
                                     <segue destination="gYO-nc-aVh" kind="show" identifier="" id="aNw-iQ-Dpb"/>
                                 </connections>
@@ -192,7 +247,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="aFh-ie-Vob">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="gYO-nc-aVh" id="ecc-9H-EYp"/>
@@ -506,9 +561,10 @@
     </scenes>
     <resources>
         <image name="ProfilePlaceholderImg" width="128" height="128"/>
+        <image name="ico_stack_of_photos" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WhF-MR-hWy"/>
-        <segue reference="Rbw-l3-oj4"/>
+        <segue reference="23p-vl-4my"/>
     </inferredMetricsTieBreakers>
 </document>
