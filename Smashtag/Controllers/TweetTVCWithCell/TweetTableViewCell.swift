@@ -32,13 +32,7 @@ class TweetTableViewCell: UITableViewCell
         
         // Setup image field
         if let profileImageURL = tweet.user.profileImageURL {
-            tweetProfileImageView.setImage(profileImageURL, placeholderImage: profilePlaceholderImage, success: {
-                if profileImageURL == self.tweet!.user.profileImageURL {
-                    self.tweetProfileImageView.image = $0
-                } else {
-                    println("Wrong")
-                }
-                }, failure: nil)
+            tweetProfileImageView.setImage(profileImageURL, placeholderImage: profilePlaceholderImage)
         }
         
         // Setup other fields

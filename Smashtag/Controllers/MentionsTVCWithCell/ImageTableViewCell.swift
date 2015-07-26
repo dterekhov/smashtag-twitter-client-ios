@@ -19,7 +19,6 @@ class ImageTableViewCell: UITableViewCell {
             if URL == nil { return }
             
             tweetImageView.setImage(URL!, placeholderImage: nil, success: {
-                self.tweetImageView.image = $0
                 self.spinner.stopAnimating()
                 }, failure: { (_) -> () in
                     self.spinner.stopAnimating()
