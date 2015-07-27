@@ -8,13 +8,21 @@
 
 import UIKit
 
-class ImageCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ImageCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, CHTCollectionViewDelegateWaterfallLayout {
     private struct Storyboard {
         static let CellID = "ImageCollectionViewCell"
     }
     
     private struct Constants {
         static let MinImageCellWidth: CGFloat = 60
+        static let CellSizeWidth: CGFloat = 120
+        static let CellSizeHeight: CGFloat = 120
+        
+        static let WaterfallColumnCount = 3
+        static let WaterfallMinimumColumnSpacing: CGFloat = 1
+        static let WaterfallMinimumInteritemSpacing: CGFloat = 1
+        static let WaterfallMaxColumnCount = 8
+        static let WaterfallMinColumnCount = 1
     }
     
     // MARK: - Public API
@@ -38,8 +46,22 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     private var images = [TweetMedia]()
     private var scale: CGFloat = 1 {
         didSet {
-            collectionViewLayout.invalidateLayout()
+            collectionView?.collectionViewLayout.invalidateLayout()
         }
+    }
+    
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupWaterfallCollectionViewLayout()
+    }
+    
+    private func setupWaterfallCollectionViewLayout() {
+        var layout = CHTCollectionViewWaterfallLayout()
+        layout.columnCount = Constants.WaterfallColumnCount
+        layout.minimumColumnSpacing = Constants.WaterfallMinimumColumnSpacing
+        layout.minimumInteritemSpacing = Constants.WaterfallMinimumInteritemSpacing
+        collectionView?.collectionViewLayout = layout
     }
     
     // MARK: - Navigation
@@ -62,13 +84,24 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         return cell
     }
 
-    // MARK: - UICollectionViewDelegateFlowLayout
+    // MARK: - UICollectionViewDelegateFlowLayout, CHTCollectionViewDelegateWaterfallLayout
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        if let waterfallLayout = collectionView.collectionViewLayout as? CHTCollectionViewWaterfallLayout {
+            let changedColumnCount = Int(CGFloat(Constants.WaterfallColumnCount) / scale)
+            // Handle column count with min and max values
+            if changedColumnCount < Constants.WaterfallMinColumnCount {
+                waterfallLayout.columnCount = Constants.WaterfallMinColumnCount
+            } else if changedColumnCount > Constants.WaterfallMaxColumnCount {
+                waterfallLayout.columnCount = Constants.WaterfallMaxColumnCount
+            } else {
+                waterfallLayout.columnCount = changedColumnCount
+            }
+        }
+        
         let ratio = CGFloat(images[indexPath.row].mediaItem.aspectRatio)
         let collectionViewWidth = collectionView.bounds.size.width
-        let itemSize = (collectionViewLayout as! UICollectionViewFlowLayout).itemSize
+        var size = CGSize(width: Constants.CellSizeWidth * scale, height: Constants.CellSizeHeight * scale)
         
-        var size = CGSize(width: itemSize.width * scale, height: itemSize.height * scale)
         if ratio > 1 {
             size.height /= ratio
         } else {

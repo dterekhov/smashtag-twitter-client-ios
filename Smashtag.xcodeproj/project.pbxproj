@@ -26,6 +26,7 @@
 		0973C79A1B5E123500D6BF9E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0973C7991B5E123500D6BF9E /* WebViewController.swift */; };
 		098540471B6505BF00AC06E5 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098540461B6505BF00AC06E5 /* ImageCollectionViewCell.swift */; };
 		098540491B6505DD00AC06E5 /* ImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098540481B6505DD00AC06E5 /* ImageCollectionViewController.swift */; };
+		0985404D1B66063800AC06E5 /* CHTCollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985404C1B66063800AC06E5 /* CHTCollectionViewWaterfallLayout.swift */; };
 		EC6876171A898EF4006B5FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6876161A898EF4006B5FDB /* AppDelegate.swift */; };
 		EC68762D1A898EF4006B5FDB /* SmashtagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC68762C1A898EF4006B5FDB /* SmashtagTests.swift */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,7 @@
 		0973C7991B5E123500D6BF9E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		098540461B6505BF00AC06E5 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		098540481B6505DD00AC06E5 /* ImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewController.swift; sourceTree = "<group>"; };
+		0985404C1B66063800AC06E5 /* CHTCollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHTCollectionViewWaterfallLayout.swift; sourceTree = "<group>"; };
 		EC6876111A898EF4006B5FDB /* Smashtag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smashtag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC6876161A898EF4006B5FDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC6876261A898EF4006B5FDB /* SmashtagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmashtagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +93,7 @@
 			children = (
 				09538EA21B5A60E300AD2805 /* SearchQuerySaver.swift */,
 				09538EA31B5A60E300AD2805 /* UIImageViewCacheExtension.swift */,
+				0985404C1B66063800AC06E5 /* CHTCollectionViewWaterfallLayout.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				095AAD031B5B8E3E0054A4C8 /* ImageViewController.swift in Sources */,
 				09538EC21B5A614000AD2805 /* TweetTableViewController.swift in Sources */,
 				09538EBF1B5A614000AD2805 /* MentionTableViewController.swift in Sources */,
+				0985404D1B66063800AC06E5 /* CHTCollectionViewWaterfallLayout.swift in Sources */,
 				09538EB71B5A610C00AD2805 /* TwitterRequest.swift in Sources */,
 				09538EDE1B5AA71A00AD2805 /* ImageTableViewCell.swift in Sources */,
 				09538EAB1B5A60E300AD2805 /* UIImageViewCacheExtension.swift in Sources */,
