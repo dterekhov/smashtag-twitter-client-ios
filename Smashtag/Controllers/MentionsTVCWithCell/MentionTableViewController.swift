@@ -22,10 +22,10 @@ class MentionTableViewController: UITableViewController, UIActionSheetDelegate {
         static let appName = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as! String
         
         // Category names
-        static let ImageCategoryName = "Images"
-        static let HashtagCategoryName = "Hashtags"
-        static let UserCategoryName = "Users"
-        static let URLCategoryName = "URLs"
+        static let ImageCategoryName = NSLocalizedString("ImageCategoryName", comment: "")
+        static let HashtagCategoryName = NSLocalizedString("HashtagCategoryName", comment: "")
+        static let UserCategoryName = NSLocalizedString("UserCategoryName", comment: "")
+        static let URLCategoryName = NSLocalizedString("URLCategoryName", comment: "")
         
         // UIActionSheet button indexes
         static let OpenURLInsideApp = 1
@@ -142,7 +142,7 @@ class MentionTableViewController: UITableViewController, UIActionSheetDelegate {
                 case .Keyword(let keyword):
                     openingURL = NSURL(string: keyword)!
                     let test = Constants.appName
-                    let openURLActionSheet = UIActionSheet(title: "Open URL in", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: Constants.appName, "Safari");
+                    let openURLActionSheet = UIActionSheet(title: NSLocalizedString("Open URL in", comment: ""), delegate: self, cancelButtonTitle: NSLocalizedString("Cancel", comment: ""), destructiveButtonTitle: nil, otherButtonTitles: Constants.appName, "Safari");
                     openURLActionSheet.showInView(self.view)
                     return false
                 default:

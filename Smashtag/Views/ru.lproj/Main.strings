@@ -1,0 +1,51 @@
+
+/* Class = "UILabel"; text = "Tweet Text"; ObjectID = "4ed-QL-hSy"; */
+"4ed-QL-hSy.text" = "Tweet Text";
+
+/* Class = "UITextField"; placeholder = "Twitter Search Query"; ObjectID = "ALr-b2-w3E"; */
+"ALr-b2-w3E.placeholder" = "Поиск по твитам";
+
+/* Class = "UILabel"; text = "Error in loading page"; ObjectID = "BWz-kp-k2E"; */
+"BWz-kp-k2E.text" = "Ошибка загрузки страницы";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "CDO-Ht-oXb"; */
+"CDO-Ht-oXb.text" = "Date";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "FVC-OY-WzT"; */
+"FVC-OY-WzT.title" = "Title";
+
+/* Class = "UITableViewController"; title = "MentionsTVC"; ObjectID = "Ibh-OL-JpU"; */
+"Ibh-OL-JpU.title" = "MentionsTVC";
+
+/* Class = "UILabel"; text = "Tweeter"; ObjectID = "Jj6-GE-mmF"; */
+"Jj6-GE-mmF.text" = "Tweeter";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "PzW-Qf-Jbi"; */
+"PzW-Qf-Jbi.title" = "Title";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "RM4-z7-bPs"; */
+"RM4-z7-bPs.text" = "Date";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "efx-Na-zfB"; */
+"efx-Na-zfB.text" = "Title";
+
+/* Class = "UILabel"; text = "Tweeter"; ObjectID = "f8q-ie-pB7"; */
+"f8q-ie-pB7.text" = "Tweeter";
+
+/* Class = "UILabel"; text = "Tweet Text"; ObjectID = "gcg-Q8-sZh"; */
+"gcg-Q8-sZh.text" = "Tweet Text";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "iBS-vb-hXa"; */
+"iBS-vb-hXa.title" = "Title";
+
+/* Class = "UIViewController"; title = "WebVC"; ObjectID = "mdS-aV-TRK"; */
+"mdS-aV-TRK.title" = "WebVC";
+
+/* Class = "UITextField"; placeholder = "Twitter Search Query"; ObjectID = "okN-dk-5wu"; */
+"okN-dk-5wu.placeholder" = "Поиск по твитам";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "sLa-AV-LBL"; */
+"sLa-AV-LBL.text" = "Title";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "tp2-nM-ptA"; */
+"tp2-nM-ptA.title" = "Title";

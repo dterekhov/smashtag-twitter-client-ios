@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  Smashtag
+
+  Created by Dmitry Terekhov on 28.07.15.
+  Copyright (c) 2015 Stanford University. All rights reserved.
+*/
+
+"Tweets by" = "Tweets by ";
+"ImageCategoryName" = "Images";
+"HashtagCategoryName" = "Hashtags";
+"UserCategoryName" = "Users";
+"URLCategoryName" = "URLs";
+"Open URL in" = "Open URL in";
+"Cancel" = "Cancel";

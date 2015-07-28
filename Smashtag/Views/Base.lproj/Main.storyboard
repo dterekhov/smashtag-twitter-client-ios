@@ -624,9 +624,9 @@
         <image name="ico_stack_of_photos" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="36t-cV-X90"/>
         <segue reference="72Z-GK-qAz"/>
         <segue reference="WhF-MR-hWy"/>
         <segue reference="23p-vl-4my"/>
+        <segue reference="IOV-c3-AnY"/>
     </inferredMetricsTieBreakers>
 </document>

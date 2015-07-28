@@ -53,7 +53,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
             showImagesButton.enabled = true // Can segue by button tap if tweets.count > 0
             searchTextField.text = ""
             let tweet = tweets.first!.first!
-            title = "Tweets by " + tweet.user.name
+            title = NSLocalizedString("Tweets by", comment: "") + tweet.user.name
             tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
         }
     }
