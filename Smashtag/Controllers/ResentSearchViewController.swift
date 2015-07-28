@@ -10,7 +10,6 @@ import UIKit
 import Foundation
 
 class ResentSearchViewController: UIViewController, UITableViewDataSource {
-    // MARK: - Constants
     private struct Storyboard {
         static let CellID = "RecentSearchTableViewCell"
         static let ShowTweetTVC = "ShowTweetTVC"

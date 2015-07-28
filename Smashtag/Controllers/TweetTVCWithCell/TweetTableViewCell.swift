@@ -10,14 +10,15 @@ import UIKit
 
 class TweetTableViewCell: UITableViewCell
 {
-    // MARK: - Constants
     private struct Pallete {
         static let HashtagColor = UIColor.brownColor()
         static let URLColor = UIColor.blueColor()
         static let UserColor = UIColor.purpleColor()
     }
     
-    let profilePlaceholderImage = UIImage(named: "ProfilePlaceholderImg")
+    private struct Constants {
+        static let ProfilePlaceholderImage = UIImage(named: "ProfilePlaceholderImg")
+    }
     
     // MARK: - Members
     private(set) var tweet: Tweet?
@@ -32,7 +33,7 @@ class TweetTableViewCell: UITableViewCell
         
         // Setup image field
         if let profileImageURL = tweet.user.profileImageURL {
-            tweetProfileImageView.setImage(profileImageURL, placeholderImage: profilePlaceholderImage)
+            tweetProfileImageView.setImage(profileImageURL, placeholderImage: Constants.ProfilePlaceholderImage)
         }
         
         // Setup other fields

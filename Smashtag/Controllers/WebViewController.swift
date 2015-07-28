@@ -9,6 +9,10 @@
 import UIKit
 
 class WebViewController: UIViewController, UIWebViewDelegate {
+    private struct Constants {
+        static let BackButtonImage = UIImage(named: "ico_back")
+    }
+    
     // MARK: - Members
     @IBOutlet private weak var webView: UIWebView! {
         didSet {
@@ -28,10 +32,10 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Rewind, target: self, action: "navigateToPreviousWebPageOrVC:")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Constants.BackButtonImage, style: UIBarButtonItemStyle.Plain, target: self, action: "navigateToPreviousWebPageOrVC:")
     }
     
-    // MARK: - BarButtonItem actions
+    // MARK: - Users interaction
     @objc private func navigateToPreviousWebPageOrVC(sender: UIBarButtonItem) {
         if webView.canGoBack {
             webView.goBack()

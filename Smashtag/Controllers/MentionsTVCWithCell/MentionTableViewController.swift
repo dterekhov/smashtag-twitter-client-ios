@@ -9,7 +9,6 @@
 import UIKit
 
 class MentionTableViewController: UITableViewController, UIActionSheetDelegate {
-    // MARK: - Constants
     private struct Storyboard {
         // Cell's identifiers
         static let MentionTableViewCellID = "MentionTableViewCell"

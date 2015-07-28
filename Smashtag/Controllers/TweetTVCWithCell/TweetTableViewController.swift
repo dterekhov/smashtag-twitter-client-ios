@@ -16,6 +16,16 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         static let showImageCVC = "showImageCVC"
     }
     
+    // MARK: - Members
+    @IBOutlet private weak var searchTextField: UITextField! {
+        didSet {
+            searchTextField.delegate = self
+            searchTextField.text = searchText
+        }
+    }
+    
+    @IBOutlet private weak var showImagesButton: UIButton!
+    
     // MARK: - Public API
     var tweets = [[Tweet]]()
 
@@ -29,7 +39,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         }
     }
     
-    // MARK: - View Controller Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.estimatedRowHeight = tableView.rowHeight
@@ -90,21 +100,12 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         }
     }
     
-    func refresh() {
+    private func refresh() {
         refreshControl?.beginRefreshing()
         refresh(refreshControl)
     }
     
-    // MARK: - Storyboard Connectivity
-    @IBOutlet private weak var searchTextField: UITextField! {
-        didSet {
-            searchTextField.delegate = self
-            searchTextField.text = searchText
-        }
-    }
-    
-    @IBOutlet weak var showImagesButton: UIButton!
-    
+    // MARK: - UITextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == searchTextField {
             textField.resignFirstResponder()
@@ -137,6 +138,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
                 mentionsTVC.title = "\(cell.tweet!.user)"
             }
         } else if let imageCVC = segue.destinationViewController as? ImageCollectionViewController where segue.identifier == Storyboard.showImageCVC {
+            imageCVC.title = searchText
             imageCVC.tweets = tweets
         }
     }

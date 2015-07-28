@@ -15,14 +15,18 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     
     private struct Constants {
         static let MinImageCellWidth: CGFloat = 60
-        static let CellSizeWidth: CGFloat = 120
-        static let CellSizeHeight: CGFloat = 120
+        static let CellSize = CGSize(width: 104, height: 104)
+        
+        static let MinimumColumnSpacing: CGFloat = 2
+        static let MinimumInteritemSpacing: CGFloat = 2
+        static let SectionInset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
         
         static let WaterfallColumnCount = 3
-        static let WaterfallMinimumColumnSpacing: CGFloat = 1
-        static let WaterfallMinimumInteritemSpacing: CGFloat = 1
         static let WaterfallMaxColumnCount = 8
         static let WaterfallMinColumnCount = 1
+        
+        static let FlowLayoutIcon = UIImage(named: "ico_flow_layout")
+        static let WaterfallLayoutIcon = UIImage(named: "ico_waterfall_layout")
     }
     
     // MARK: - Public API
@@ -35,13 +39,6 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         }
     }
     
-    @IBAction func zoomCollectionView(sender: UIPinchGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.Changed {
-            scale *= sender.scale
-            sender.scale = 1.0
-        }
-    }
-    
     // MARK: - Members
     private var images = [TweetMedia]()
     private var scale: CGFloat = 1 {
@@ -49,19 +46,75 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
             collectionView?.collectionViewLayout.invalidateLayout()
         }
     }
+    private var flowLayout = UICollectionViewFlowLayout()
+    private var waterfallLayout = CHTCollectionViewWaterfallLayout()
+    private var changeLayoutButton: UIBarButtonItem?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupChangeLayoutButton()
         setupWaterfallCollectionViewLayout()
     }
     
+    // MARK: - Setups
+    private func setupChangeLayoutButton() {
+        changeLayoutButton = UIBarButtonItem(image: Constants.FlowLayoutIcon, style: UIBarButtonItemStyle.Plain, target: self, action: "changeLayout:")
+        if let existButton = navigationItem.rightBarButtonItem {
+            navigationItem.rightBarButtonItems = [existButton, changeLayoutButton!]
+        } else {
+            navigationItem.rightBarButtonItem = changeLayoutButton
+        }
+    }
+    
     private func setupWaterfallCollectionViewLayout() {
-        var layout = CHTCollectionViewWaterfallLayout()
-        layout.columnCount = Constants.WaterfallColumnCount
-        layout.minimumColumnSpacing = Constants.WaterfallMinimumColumnSpacing
-        layout.minimumInteritemSpacing = Constants.WaterfallMinimumInteritemSpacing
-        collectionView?.collectionViewLayout = layout
+        // Setup flowLayout
+        flowLayout.minimumLineSpacing = Constants.MinimumColumnSpacing
+        flowLayout.minimumInteritemSpacing = Constants.MinimumInteritemSpacing
+        flowLayout.sectionInset = Constants.SectionInset
+        
+        // Setup waterfallLayout
+        waterfallLayout.columnCount = Constants.WaterfallColumnCount
+        waterfallLayout.minimumColumnSpacing = Constants.MinimumColumnSpacing
+        waterfallLayout.minimumInteritemSpacing = Constants.MinimumInteritemSpacing
+        
+        // By default: waterfallLayout
+        collectionView?.collectionViewLayout = waterfallLayout
+    }
+    
+    private func refreshWaterfallLayoutColumnCount(collectionView: UICollectionView) {
+        if let waterfallLayout = collectionView.collectionViewLayout as? CHTCollectionViewWaterfallLayout {
+            let changedColumnCount = Int(CGFloat(Constants.WaterfallColumnCount) / scale)
+            // Handle column count with min and max values
+            if changedColumnCount < Constants.WaterfallMinColumnCount {
+                waterfallLayout.columnCount = Constants.WaterfallMinColumnCount
+            } else if changedColumnCount > Constants.WaterfallMaxColumnCount {
+                waterfallLayout.columnCount = Constants.WaterfallMaxColumnCount
+            } else {
+                waterfallLayout.columnCount = changedColumnCount
+            }
+        }
+    }
+    
+    // MARK: - User interaction
+    @IBAction private func zoomCollectionView(sender: UIPinchGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.Changed {
+            scale *= sender.scale
+            sender.scale = 1.0
+        }
+    }
+    
+    @objc private func changeLayout(sender: UIBarButtonItem) {
+        if let currentLayout = collectionView?.collectionViewLayout {
+            if currentLayout is CHTCollectionViewWaterfallLayout {
+                changeLayoutButton?.image = Constants.WaterfallLayoutIcon
+                collectionView?.setCollectionViewLayout(flowLayout, animated: true)
+            } else {
+                changeLayoutButton?.image = Constants.FlowLayoutIcon
+                collectionView?.setCollectionViewLayout(waterfallLayout, animated: true)
+            }
+        }
     }
     
     // MARK: - Navigation
@@ -86,21 +139,12 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
 
     // MARK: - UICollectionViewDelegateFlowLayout, CHTCollectionViewDelegateWaterfallLayout
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        if let waterfallLayout = collectionView.collectionViewLayout as? CHTCollectionViewWaterfallLayout {
-            let changedColumnCount = Int(CGFloat(Constants.WaterfallColumnCount) / scale)
-            // Handle column count with min and max values
-            if changedColumnCount < Constants.WaterfallMinColumnCount {
-                waterfallLayout.columnCount = Constants.WaterfallMinColumnCount
-            } else if changedColumnCount > Constants.WaterfallMaxColumnCount {
-                waterfallLayout.columnCount = Constants.WaterfallMaxColumnCount
-            } else {
-                waterfallLayout.columnCount = changedColumnCount
-            }
-        }
+        // Refresh columnCount only for waterfallLayout
+        refreshWaterfallLayoutColumnCount(collectionView)
         
         let ratio = CGFloat(images[indexPath.row].mediaItem.aspectRatio)
-        let collectionViewWidth = collectionView.bounds.size.width
-        var size = CGSize(width: Constants.CellSizeWidth * scale, height: Constants.CellSizeHeight * scale)
+        let maxCellWidth = collectionView.bounds.size.width
+        var size = CGSize(width: Constants.CellSize.width * scale, height: Constants.CellSize.height * scale)
         
         if ratio > 1 {
             size.height /= ratio
@@ -108,8 +152,8 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
             size.width *= ratio
         }
         
-        if size.width > collectionViewWidth {
-            size.width = collectionViewWidth
+        if size.width > maxCellWidth {
+            size.width = maxCellWidth
             size.height = size.width / ratio
         } else if size.width < Constants.MinImageCellWidth {
             size.width = Constants.MinImageCellWidth

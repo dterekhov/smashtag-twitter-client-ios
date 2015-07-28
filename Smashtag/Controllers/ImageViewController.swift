@@ -31,6 +31,20 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         refreshUI()
     }
     
+    // MARK: - Setups
+    private func refreshUI() {
+        if scrollView == nil {
+            return
+        }
+        imageView.image = image
+        imageView.sizeToFit()
+        imageView.frame.origin = CGPointZero
+        scrollView.contentSize = imageView.frame.size
+        println(scrollView.contentSize)
+        autoZoomed = true
+        zoomScaleToFit()
+    }
+    
     // MARK: - Autozooming-to-fit
     private var autoZoomed = true
     
@@ -57,22 +71,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         return imageView
     }
     
-    // MARK: - Helpers
-    private func refreshUI() {
-        if scrollView == nil {
-            return
-        }
-        imageView.image = image
-        imageView.sizeToFit()
-        imageView.frame.origin = CGPointZero
-        scrollView.contentSize = imageView.frame.size
-        println(scrollView.contentSize)
-        autoZoomed = true
-        zoomScaleToFit()
-    }
-    
     // MARK: - UITapGestureRecognizer handler
-    @IBAction func scrollViewDoubleTap(sender: UITapGestureRecognizer) {
+    @IBAction private func scrollViewDoubleTap(sender: UITapGestureRecognizer) {
         scrollView.setZoomScale(scrollView.zoomScale > scrollView.minimumZoomScale ? scrollView.minimumZoomScale : scrollView.maximumZoomScale, animated: true)
         scrollView.contentOffset = CGPoint(x: (imageView.frame.size.width - scrollView.frame.width) / 2,
             y: (imageView.frame.size.height - scrollView.frame.height) / 2)
