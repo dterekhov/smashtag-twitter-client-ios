@@ -50,7 +50,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         if tweets.count == 0 {
             refresh()
         } else {
-            showImagesButton.enabled = true // Can segue by button tap if tweets.count > 0
             searchTextField.text = ""
             let tweet = tweets.first!.first!
             title = NSLocalizedString("Tweets by", comment: "") + tweet.user.name
@@ -71,12 +70,11 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
 
     private var nextRequestToAttempt: TwitterRequest? {
         if lastSuccessfulRequest == nil {
-            if searchText != nil {
-                SearchQuerySaver.saveSearchQuery(searchText!)
-                return TwitterRequest(search: searchText!, count: 100)
-            } else {
+            if searchText == nil || searchText!.isEmpty {
                 return nil
             }
+            SearchQuerySaver.saveSearchQuery(searchText!)
+            return TwitterRequest(search: searchText!, count: 100)
         } else {
             return lastSuccessfulRequest!.requestForNewer
         }
@@ -96,6 +94,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
                 }
             }
         } else {
+            showImagesButton.enabled = false
             sender?.endRefreshing()
         }
     }
